@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
+    "phaser": "^3.54.0",
     "prettier": "^2.2.1"
   },
   "prettier": {
