@@ -94,13 +94,6 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
     });
 
-        this.anims.create({
-      key: 'space',
-      frames: this.anims.generateFrameNumbers('doublejump', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1,
-    });
-
     //skapade funktion isället
 
     /*  const m = this.add
@@ -158,10 +151,11 @@ class GameScene extends Phaser.Scene {
     if (this.cursors.up.isDown && this.player.body.blocked.down) {
       this.player.setVelocityY(-150);
       this.player.anims.play('jump', true);
-    } else if (this.cursors.space.isDown) {
+    } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
       this.player.setVelocityY(-250);
       this.player.anims.play('jump', true);
     }
   }
+}
 
-  export default GameScene;
+export default GameScene;
