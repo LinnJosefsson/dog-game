@@ -27,6 +27,9 @@ class GameScene extends Phaser.Scene {
     this.load.image('plateau', 'src/assets/plateau.png');
     this.load.image('ground', 'src/assets/ground.png');
     this.load.image('plant', 'src/assets/plant.png');
+    this.load.image('banana', 'src/assets/banana.png');
+    this.load.image('strawberry', 'src/assets/strawberry.png');
+    this.load.image('vacuum', 'src/assets/vacuum-cleaner.png');
     this.load.spritesheet('dog', 'src/assets/dog1.png', {
       frameWidth: 111,
       frameHeight: 103,
@@ -40,6 +43,7 @@ class GameScene extends Phaser.Scene {
       frameHeight: 103,
     });
   }
+
   create() {
     const width = this.scale.width;
     const height = this.scale.height;
@@ -51,6 +55,41 @@ class GameScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'plateau', 0.5);
     createLooped(this, totalWidth, 'ground', 1);
     createLooped(this, totalWidth, 'plant', 1.25);
+
+    //Banana
+
+    const banan = this.add.image(width * 2, 615, 'banana');
+    banan.scale = 0.04;
+
+    const banan2 = this.add.image(width * 1.2, 615, 'banana');
+    banan2.scale = 0.03;
+
+    const banan3 = this.add.image(width / 3, 615, 'banana');
+    banan3.scale = 0.05;
+
+    //Strawberry
+
+    const strawberry = this.add.image(width / 7, 615, 'strawberry');
+    strawberry.scale = 0.03;
+
+    const strawberry1 = this.add.image(width * 1.5, 615, 'strawberry');
+    strawberry1.scale = 0.04;
+
+    const strawberry2 = this.add.image(width * 2.5, 615, 'strawberry');
+    strawberry2.scale = 0.02;
+
+    //Vacuum
+
+    const vacuum = this.add.image(width / 1.5, 615, 'vacuum');
+    vacuum.scale = 0.04;
+
+    const vacuum1 = this.add.image(width * 1.8, 615, 'vacuum');
+    vacuum1.scale = 0.03;
+
+    const vacuum2 = this.add.image(width * 2.2, 615, 'vacuum');
+    vacuum2.scale = 0.04;
+
+    //Corgi
     let player;
     this.player = this.physics.add.sprite(width * 0.5, height * 0.5, 'dog');
 
