@@ -10,7 +10,7 @@ Add the installation instructions.
 
 # Changelog
 
-- [#1 - Add a link to each pull request with a descriptive line.](#1)
+- [#1 - Implemented a Phaser starter template, added our Game scene, changed bg and created a Title Scene](https://github.com/LinnJosefsson/dog-game/commit/a31c853922b2c3f461936bb0b6ce05ac64089eca)
 
 # Code Review
 
