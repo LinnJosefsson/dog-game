@@ -28,8 +28,16 @@ class GameScene extends Phaser.Scene {
     this.load.image('ground', 'src/assets/ground.png');
     this.load.image('plant', 'src/assets/plant.png');
     this.load.spritesheet('dog', 'src/assets/dog1.png', {
-      frameWidth: 64,
-      frameHeight: 89,
+      frameWidth: 111,
+      frameHeight: 103,
+    });
+    this.load.spritesheet('dogleft', 'src/assets/dogleft.png', {
+      frameWidth: 111,
+      frameHeight: 103,
+    });
+    this.load.spritesheet('jump', 'src/assets/jump.png', {
+      frameWidth: 111,
+      frameHeight: 103,
     });
   }
   create() {
@@ -61,7 +69,7 @@ class GameScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('dog', { start: 0, end: 1 }),
+      frames: this.anims.generateFrameNumbers('dogleft', { start: 1, end: 4 }),
       frameRate: 10,
       repeat: -1,
     });
@@ -74,7 +82,14 @@ class GameScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNumbers('dog', { start: 3, end: 4 }),
+      frames: this.anims.generateFrameNumbers('dog', { start: 2, end: 4 }),
+      frameRate: 10,
+      repeat: -1,
+    });
+
+    this.anims.create({
+      key: 'up',
+      frames: this.anims.generateFrameNumbers('jump', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1,
     });
@@ -130,12 +145,12 @@ class GameScene extends Phaser.Scene {
       this.player.anims.play('right', true);
     } else {
       this.player.setVelocityX(0);
-
-      this.player.anims.play('turn');
+      this.player.anims.stop(null, true);
     }
 
-    if (this.cursors.space.isDown || this.cursors.up.isDown) {
-      this.player.setVelocityY(-200);
+    if (this.cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-150);
+      this.player.anims.play('jump', true);
     }
   }
 }
