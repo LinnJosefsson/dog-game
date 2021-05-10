@@ -6,7 +6,10 @@ Text about the project and which JavaScript library you're using. This would als
 
 # Installation
 
-Add the installation instructions.
+- after cloning or downloading the repo, cd into the folder containing it
+- open up your terminal and:
+  - `npm install` to get all the plugins
+  - `npm start` to start the game
 
 # Changelog
 
