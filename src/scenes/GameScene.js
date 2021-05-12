@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
 
+let score = 0;
+let scoreText;
+
 const createLooped = (scene, totalWidth, texture, scrollFactor) => {
   const w = scene.textures.get(texture).getSourceImage().width;
 
@@ -28,6 +31,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('ground', 'src/assets/ground.png');
     this.load.image('plant', 'src/assets/plant.png');
     this.load.image('banana', 'src/assets/banana.png');
+    this.load.image('banana-sm', 'src/assets/banana-sm.png');
     this.load.image('strawberry', 'src/assets/strawberry.png');
     this.load.image('vacuum', 'src/assets/vacuum-cleaner.png');
     this.load.spritesheet('dog', 'src/assets/dog1.png', {
@@ -56,38 +60,51 @@ class GameScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'ground', 1);
     createLooped(this, totalWidth, 'plant', 1.25);
 
-    //Banana
+    //2 olika group: static eller inte, vilken ska vi ha?
 
-    const banan = this.add.image(width * 2, 615, 'banana');
-    banan.scale = 0.04;
+    //Banana med group
 
-    const banan2 = this.add.image(width * 1.2, 615, 'banana');
-    banan2.scale = 0.03;
+    this.bananas = this.physics.add.group({
+      key: 'banana-sm',
+      repeat: 6,
+      setXY: { x: 12, y: 635, stepX: 350 },
+    });
 
-    const banan3 = this.add.image(width / 3, 615, 'banana');
-    banan3.scale = 0.05;
+    Phaser.Actions.Call(this.bananas.getChildren(), function (banana) {
+      banana.body.allowGravity = false;
+    });
 
-    //Strawberry
+    //Strawberry med static group
 
-    const strawberry = this.add.image(width / 7, 615, 'strawberry');
-    strawberry.scale = 0.03;
+    const strawberry = this.physics.add.staticGroup();
+    strawberry
+      .create(width / 7, 615, 'strawberry')
+      .setScale(0.03)
+      .refreshBody();
+    strawberry
+      .create(width * 1.5, 615, 'strawberry')
+      .setScale(0.04)
+      .refreshBody();
+    strawberry
+      .create(width * 2.5, 615, 'strawberry')
+      .setScale(0.02)
+      .refreshBody();
 
-    const strawberry1 = this.add.image(width * 1.5, 615, 'strawberry');
-    strawberry1.scale = 0.04;
+    //Vacuum med static group
 
-    const strawberry2 = this.add.image(width * 2.5, 615, 'strawberry');
-    strawberry2.scale = 0.02;
-
-    //Vacuum
-
-    const vacuum = this.add.image(width / 1.5, 615, 'vacuum');
-    vacuum.scale = 0.04;
-
-    const vacuum1 = this.add.image(width * 1.8, 615, 'vacuum');
-    vacuum1.scale = 0.03;
-
-    const vacuum2 = this.add.image(width * 2.2, 615, 'vacuum');
-    vacuum2.scale = 0.04;
+    const vacuum = this.physics.add.staticGroup();
+    vacuum
+      .create(width / 1.5, 615, 'vacuum')
+      .setScale(0.05)
+      .refreshBody();
+    vacuum
+      .create(width * 1.8, 615, 'vacuum')
+      .setScale(0.04)
+      .refreshBody();
+    vacuum
+      .create(width * 2.2, 615, 'vacuum')
+      .setScale(0.02)
+      .refreshBody();
 
     //Corgi
     let player;
@@ -164,6 +181,13 @@ class GameScene extends Phaser.Scene {
 
     backText.setInteractive({ useHandCursor: true });
     backText.on('pointerdown', () => this.clickButton());
+
+    scoreText = this.add.text(16, 16, 'score: 0', {
+      font: '25px Arial Black',
+      fill: '#173f5f',
+      backgroundColor: '#f6d55c',
+      padding: 10,
+    });
   }
   //kanske vi kan ha multiple levels?
   clickButton() {
