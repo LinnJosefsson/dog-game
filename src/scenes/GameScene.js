@@ -46,6 +46,7 @@ class GameScene extends Phaser.Scene {
       frameWidth: 111,
       frameHeight: 103,
     });
+    this.load.audio('jump', 'src/assets/music/jump.mp3');
   }
 
   create() {
@@ -54,6 +55,7 @@ class GameScene extends Phaser.Scene {
     const totalWidth = width * 10; //width * width om vi vill göra det infinite
     this.cursors = this.input.keyboard.createCursorKeys();
     this.add.image(width * 0.5, height * 0.5, 'sky').setScrollFactor(0);
+    this.jumpMusic = this.sound.add('jump');
 
     createLooped(this, totalWidth, 'mountain', 0.25);
     createLooped(this, totalWidth, 'plateau', 0.5);
@@ -124,7 +126,7 @@ class GameScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('dogleft', { start: 1, end: 4 }),
+      frames: this.anims.generateFrameNumbers('dogleft', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1,
     });
@@ -137,7 +139,7 @@ class GameScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'right',
-      frames: this.anims.generateFrameNumbers('dog', { start: 2, end: 4 }),
+      frames: this.anims.generateFrameNumbers('dog', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1,
     });
@@ -181,7 +183,7 @@ class GameScene extends Phaser.Scene {
     backText.setInteractive({ useHandCursor: true });
     backText.on('pointerdown', () => this.clickButton());
 
-    scoreText = this.add.text(16, 16, 'score: 0', {
+    scoreText = this.add.text(16, 16, 'Score: 0', {
       font: '25px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
@@ -212,10 +214,12 @@ class GameScene extends Phaser.Scene {
 
     if (this.cursors.up.isDown && this.player.body.blocked.down) {
       this.player.setVelocityY(-150);
-      this.player.anims.play('jump', true);
+      //this.player.anims.play('up', true);
+      this.jumpMusic.play();
     } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
       this.player.setVelocityY(-250);
-      this.player.anims.play('jump', true);
+      this.jumpMusic.play();
+      //this.player.anims.play('up', true);
     }
   }
 }
