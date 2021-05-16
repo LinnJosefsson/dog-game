@@ -72,6 +72,7 @@ class GameScene extends Phaser.Scene {
 
     Phaser.Actions.Call(this.bananas.getChildren(), function (banana) {
       banana.body.allowGravity = false;
+      banana.body.immovable = true;
     });
 
     //Strawberry med static group
@@ -112,8 +113,6 @@ class GameScene extends Phaser.Scene {
 
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
-
-    //player.setVelocity(100);
 
     this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height - 160);
 
