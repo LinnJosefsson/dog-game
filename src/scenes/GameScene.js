@@ -32,7 +32,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('plant', 'src/assets/plant.png');
     this.load.image('banana', 'src/assets/banana.png');
     this.load.image('banana-sm', 'src/assets/banana-sm.png');
-    this.load.image('strawberry', 'src/assets/strawberry.png');
+    this.load.image('strawberry-sm', 'src/assets/strawberry-sm.png');
     this.load.image('vacuum', 'src/assets/vacuum-cleaner.png');
     this.load.spritesheet('dog', 'src/assets/dog1.png', {
       frameWidth: 111,
@@ -68,18 +68,18 @@ class GameScene extends Phaser.Scene {
 
     this.bananas = this.physics.add.group({
       key: 'banana-sm',
-      repeat: 6,
+      repeat: 11,
       setXY: { x: 12, y: 635, stepX: 350 },
     });
 
     Phaser.Actions.Call(this.bananas.getChildren(), function (banana) {
       banana.body.allowGravity = false;
-      banana.body.immovable = true;
+      //banana.body.immovable = true;
     });
 
     //Strawberry med static group
 
-    const strawberry = this.physics.add.staticGroup();
+    /*     const strawberry = this.physics.add.staticGroup();
     strawberry
       .create(width / 7, 615, 'strawberry')
       .setScale(0.03)
@@ -91,7 +91,17 @@ class GameScene extends Phaser.Scene {
     strawberry
       .create(width * 2.5, 615, 'strawberry')
       .setScale(0.02)
-      .refreshBody();
+      .refreshBody(); */
+
+    this.strawberry = this.physics.add.group({
+      key: 'strawberry-sm',
+      repeat: 11,
+      setXY: { x: 50, y: 635, stepX: 600 },
+    });
+
+    Phaser.Actions.Call(this.strawberry.getChildren(), function (strawber) {
+      strawber.body.allowGravity = false;
+    });
 
     //Vacuum med static group
 
@@ -117,6 +127,22 @@ class GameScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
 
     this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height - 160);
+
+    this.physics.add.overlap(
+      this.player,
+      this.bananas,
+      this.collectBananas,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.strawberry,
+      this.collectStrawberry,
+      null,
+      this
+    );
 
     this.anims.create({
       key: 'idle',
@@ -193,6 +219,15 @@ class GameScene extends Phaser.Scene {
   //kanske vi kan ha multiple levels?
   clickButton() {
     this.scene.switch('TitleScene');
+  }
+
+  collectBananas(player, bananas) {
+    bananas.destroy();
+    //bananas.revive();
+  }
+
+  collectStrawberry(player, strawberry) {
+    strawberry.destroy();
   }
 
   update() {
