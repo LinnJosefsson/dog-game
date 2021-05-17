@@ -22,7 +22,7 @@ class TitleScene extends Phaser.Scene {
       loop: true,
       delay: 0,
     };
-    //this.bgMusic.play(musicConfig);
+    this.bgMusic.play(musicConfig);
     const park = this.add.image(0, 0, 'park');
     park.setOrigin(0, 0);
 

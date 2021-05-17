@@ -47,6 +47,7 @@ class GameScene extends Phaser.Scene {
       frameHeight: 103,
     });
     this.load.audio('jump', 'src/assets/music/jump.mp3');
+    this.load.audio('eat', 'src/assets/music/ra.mp3');
   }
 
   create() {
@@ -56,6 +57,7 @@ class GameScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.add.image(width * 0.5, height * 0.5, 'sky').setScrollFactor(0);
     this.jumpMusic = this.sound.add('jump');
+    this.eatMusic = this.sound.add('eat');
 
     createLooped(this, totalWidth, 'mountain', 0.25);
     createLooped(this, totalWidth, 'plateau', 0.5);
@@ -230,18 +232,21 @@ class GameScene extends Phaser.Scene {
     bananas.destroy();
     score += 10;
     scoreText.setText(`Score: ${score}`);
+    this.eatMusic.play();
   }
 
   collectStrawberry(player, strawberry) {
     strawberry.destroy();
     score += 5;
     scoreText.setText(`Score: ${score}`);
+    this.eatMusic.play();
   }
 
   collectCarrots(player, carrots) {
     carrots.destroy();
     score += 15;
     scoreText.setText(`Score: ${score}`);
+    this.eatMusic.play();
   }
 
   update() {
