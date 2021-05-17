@@ -30,7 +30,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('plateau', 'src/assets/plateau.png');
     this.load.image('ground', 'src/assets/ground.png');
     this.load.image('plant', 'src/assets/plant.png');
-    this.load.image('banana', 'src/assets/banana.png');
+    this.load.image('carrot-sm', 'src/assets/carrot-sm.png');
     this.load.image('banana-sm', 'src/assets/banana-sm.png');
     this.load.image('strawberry-sm', 'src/assets/strawberry-sm.png');
     this.load.image('vacuum', 'src/assets/vacuum-cleaner.png');
@@ -62,9 +62,7 @@ class GameScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'ground', 1);
     createLooped(this, totalWidth, 'plant', 1.25);
 
-    //2 olika group: static eller inte, vilken ska vi ha?
-
-    //Banana med group
+    //Banana
 
     this.bananas = this.physics.add.group({
       key: 'banana-sm',
@@ -77,30 +75,28 @@ class GameScene extends Phaser.Scene {
       //banana.body.immovable = true;
     });
 
-    //Strawberry med static group
-
-    /*     const strawberry = this.physics.add.staticGroup();
-    strawberry
-      .create(width / 7, 615, 'strawberry')
-      .setScale(0.03)
-      .refreshBody();
-    strawberry
-      .create(width * 1.5, 615, 'strawberry')
-      .setScale(0.04)
-      .refreshBody();
-    strawberry
-      .create(width * 2.5, 615, 'strawberry')
-      .setScale(0.02)
-      .refreshBody(); */
+    //Strawberry
 
     this.strawberry = this.physics.add.group({
       key: 'strawberry-sm',
       repeat: 11,
-      setXY: { x: 50, y: 635, stepX: 600 },
+      setXY: { x: 80, y: 600, stepX: 600 },
     });
 
     Phaser.Actions.Call(this.strawberry.getChildren(), function (strawber) {
       strawber.body.allowGravity = false;
+    });
+
+    //Carrot
+
+    this.carrots = this.physics.add.group({
+      key: 'carrot-sm',
+      repeat: 4,
+      setXY: { x: 200, y: 450, stepX: 800 },
+    });
+
+    Phaser.Actions.Call(this.carrots.getChildren(), function (carrot) {
+      carrot.body.allowGravity = false;
     });
 
     //Vacuum med static group
@@ -140,6 +136,14 @@ class GameScene extends Phaser.Scene {
       this.player,
       this.strawberry,
       this.collectStrawberry,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.carrots,
+      this.collectCarrots,
       null,
       this
     );
@@ -209,7 +213,7 @@ class GameScene extends Phaser.Scene {
     backText.setInteractive({ useHandCursor: true });
     backText.on('pointerdown', () => this.clickButton());
 
-    scoreText = this.add.text(16, 16, 'Score: 0', {
+    scoreText = this.add.text(16, 16, `Score: ${score}`, {
       font: '25px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
@@ -223,11 +227,20 @@ class GameScene extends Phaser.Scene {
 
   collectBananas(player, bananas) {
     bananas.destroy();
-    //bananas.revive();
+    score += 10;
+    scoreText.setText(`Score: ${score}`);
   }
 
   collectStrawberry(player, strawberry) {
     strawberry.destroy();
+    score += 5;
+    scoreText.setText(`Score: ${score}`);
+  }
+
+  collectCarrots(player, carrots) {
+    carrots.destroy();
+    score += 15;
+    scoreText.setText(`Score: ${score}`);
   }
 
   update() {
