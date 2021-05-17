@@ -203,10 +203,10 @@ class GameScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, width * 3, height);
     this.cameras.main.startFollow(this.player);
 
-    let backText = this.add.text(width * 2, 10, 'Back to main', {
+    let backText = this.add.text(width * 2, 100, 'Back to main', {
       font: '25px Arial Black',
-      fill: '#173f5f',
-      backgroundColor: '#f6d55c',
+      fill: '#f6d55c',
+      backgroundColor: '#173f5f',
       padding: 10,
     });
 
@@ -214,11 +214,12 @@ class GameScene extends Phaser.Scene {
     backText.on('pointerdown', () => this.clickButton());
 
     scoreText = this.add.text(16, 16, `Score: ${score}`, {
-      font: '25px Arial Black',
+      font: '28px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
-      padding: 10,
+      padding: 15,
     });
+    scoreText.setScrollFactor(0, 0);
   }
   //kanske vi kan ha multiple levels?
   clickButton() {
