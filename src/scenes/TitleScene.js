@@ -77,11 +77,25 @@ class TitleScene extends Phaser.Scene {
     });
 
     startText.setInteractive({ useHandCursor: true });
-    startText.on('pointerdown', () => this.clickButton());
+    startText.on('pointerdown', () => this.startGame());
+
+    let ruleText = this.add.text(1100, 700, 'Rules', {
+      font: '18px Arial Black',
+      fill: '#f6d55c',
+      backgroundColor: '#173f5f',
+      padding: 10,
+    });
+
+    ruleText.setInteractive({ useHandCursor: true });
+    ruleText.on('pointerdown', () => this.startRules());
   }
 
-  clickButton() {
+  startGame() {
     this.scene.switch('GameScene');
+  }
+
+  startRules() {
+    this.scene.switch('RuleScene');
   }
 
   stopMusic() {
