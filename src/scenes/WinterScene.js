@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-let score = 0;
+//let score;
 let scoreText;
 
 const createLooped = (scene, totalWidth, texture, scrollFactor) => {
@@ -22,6 +22,11 @@ const createLooped = (scene, totalWidth, texture, scrollFactor) => {
 class WinterScene extends Phaser.Scene {
   constructor() {
     super('WinterScene');
+  }
+
+  init(data) {
+    this.score = data.totalScore;
+    console.log(data);
   }
 
   preload() {
@@ -185,7 +190,7 @@ class WinterScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, width * 3, height);
     this.cameras.main.startFollow(this.player);
 
-    let backText = this.add.text(width * 2, 100, 'Back to main', {
+    let backText = this.add.text(width * 2, 100, 'End Scene', {
       font: '25px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
@@ -195,7 +200,7 @@ class WinterScene extends Phaser.Scene {
     backText.setInteractive({ useHandCursor: true });
     backText.on('pointerdown', () => this.clickButton());
 
-    scoreText = this.add.text(16, 16, `Score: ${score}`, {
+    scoreText = this.add.text(16, 16, `Score: ${this.score}`, {
       font: '28px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
@@ -205,33 +210,33 @@ class WinterScene extends Phaser.Scene {
   }
 
   clickButton() {
-    this.scene.switch('TitleScene');
+    this.scene.start('EndScene', { endScore: this.score });
   }
 
   collectChicken(player, chicken) {
     chicken.destroy();
-    score += 15;
-    scoreText.setText(`Score: ${score}`);
+    this.score += 15;
+    scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
   }
 
   collectBlueberry(player, blueberry) {
     blueberry.destroy();
-    score += 5;
-    scoreText.setText(`Score: ${score}`);
+    this.score += 5;
+    scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
   }
 
   collectPeas(player, peas) {
     peas.destroy();
-    score += 10;
-    scoreText.setText(`Score: ${score}`);
+    this.score += 10;
+    scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
   }
 
   update() {
     const cam = this.cameras.main;
-    const speed = 10;
+    const speed = 30;
 
     if (this.cursors.left.isDown) {
       cam.scrollX -= speed;
