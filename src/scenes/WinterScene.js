@@ -29,6 +29,7 @@ class WinterScene extends Phaser.Scene {
     this.load.image('winterground', 'src/assets/winterground.png');
     this.load.image('background', 'src/assets/winterbg.png');
     this.load.image('peas', 'src/assets/peas.png');
+    this.load.image('clouds', 'src/assets/clouds.png');
     this.load.image('chicken', 'src/assets/chicken.png');
     this.load.image('blueberry', 'src/assets/blueberry.png');
     this.load.image('vacuum', 'src/assets/vacuum-cleaner.png');
@@ -54,10 +55,13 @@ class WinterScene extends Phaser.Scene {
     const totalWidth = width * 10;
     this.cursors = this.input.keyboard.createCursorKeys();
     this.add.image(width * 0.5, height * 0.2, 'wintersky').setScrollFactor(0);
+    this.add.image(width * 0.3, height * 0.1, 'clouds').setScrollFactor(0);
+    this.add.image(width * 0.7, height * 0.2, 'clouds').setScrollFactor(0);
     this.jumpMusic = this.sound.add('jump');
     this.eatMusic = this.sound.add('eat');
 
-    createLooped(this, totalWidth, 'background', 1.3);
+    createLooped(this, totalWidth, 'background', 0.8);
+
     createLooped(this, totalWidth, 'winterground', 1);
 
     //Chicken
@@ -65,7 +69,7 @@ class WinterScene extends Phaser.Scene {
     this.chicken = this.physics.add.group({
       key: 'chicken',
       repeat: 11,
-      setXY: { x: 12, y: 735, stepX: 350 },
+      setXY: { x: 12, y: 550, stepX: 350 },
     });
 
     Phaser.Actions.Call(this.chicken.getChildren(), function (chicke) {
@@ -77,7 +81,7 @@ class WinterScene extends Phaser.Scene {
     this.blueberry = this.physics.add.group({
       key: 'blueberry',
       repeat: 11,
-      setXY: { x: 80, y: 630, stepX: 600 },
+      setXY: { x: 80, y: 735, stepX: 600 },
     });
 
     Phaser.Actions.Call(this.blueberry.getChildren(), function (blueber) {
@@ -89,7 +93,7 @@ class WinterScene extends Phaser.Scene {
     this.peas = this.physics.add.group({
       key: 'peas',
       repeat: 4,
-      setXY: { x: 200, y: 550, stepX: 800 },
+      setXY: { x: 200, y: 600, stepX: 800 },
     });
 
     Phaser.Actions.Call(this.peas.getChildren(), function (pea) {

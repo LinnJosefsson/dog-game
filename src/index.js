@@ -27,4 +27,4 @@ game.scene.add('TitleScene', titleScene);
 game.scene.add('RuleScene', ruleScene);
 game.scene.add('GameScene', gameScene);
 game.scene.add('WinterScene', winterScene);
-game.scene.start('TitleScene');
+game.scene.start('WinterScene');
