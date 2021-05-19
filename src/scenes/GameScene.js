@@ -205,15 +205,15 @@ class GameScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, width * 3, height);
     this.cameras.main.startFollow(this.player);
 
-    let backText = this.add.text(width * 2, 100, 'Winter Wonderland', {
+    let winterText = this.add.text(width * 2, 100, 'Winter Wonderland', {
       font: '25px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
       padding: 10,
     });
 
-    backText.setInteractive({ useHandCursor: true });
-    backText.on('pointerdown', () => this.clickButton());
+    winterText.setInteractive({ useHandCursor: true });
+    winterText.on('pointerdown', () => this.clickButton());
 
     scoreText = this.add.text(16, 16, `Score: ${score}`, {
       font: '28px Arial Black',
