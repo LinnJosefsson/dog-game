@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 
-let score = 0;
+let score;
 let scoreText;
 
 const createLooped = (scene, totalWidth, texture, scrollFactor) => {
@@ -22,8 +22,8 @@ const createLooped = (scene, totalWidth, texture, scrollFactor) => {
 class GameScene extends Phaser.Scene {
   constructor() {
     super('GameScene');
+    this.score = 0;
   }
-
   preload() {
     this.load.image('sky', 'src/assets/sky.png');
     this.load.image('mountain', 'src/assets/mountains.png');
@@ -215,7 +215,7 @@ class GameScene extends Phaser.Scene {
     winterText.setInteractive({ useHandCursor: true });
     winterText.on('pointerdown', () => this.clickButton());
 
-    scoreText = this.add.text(16, 16, `Score: ${score}`, {
+    scoreText = this.add.text(16, 16, `Score: ${this.score}`, {
       font: '28px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
@@ -225,33 +225,33 @@ class GameScene extends Phaser.Scene {
   }
   //kanske vi kan ha multiple levels?
   clickButton() {
-    this.scene.switch('WinterScene');
+    this.scene.start('WinterScene', { totalScore: this.score });
   }
 
   collectBananas(player, bananas) {
     bananas.destroy();
-    score += 10;
-    scoreText.setText(`Score: ${score}`);
+    this.score += 10;
+    scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
   }
 
   collectStrawberry(player, strawberry) {
     strawberry.destroy();
-    score += 5;
-    scoreText.setText(`Score: ${score}`);
+    this.score += 5;
+    scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
   }
 
   collectCarrots(player, carrots) {
     carrots.destroy();
-    score += 15;
-    scoreText.setText(`Score: ${score}`);
+    this.score += 15;
+    scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
   }
 
   update() {
     const cam = this.cameras.main;
-    const speed = 10;
+    const speed = 30;
 
     if (this.cursors.left.isDown) {
       cam.scrollX -= speed;
