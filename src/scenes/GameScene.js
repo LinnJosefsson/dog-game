@@ -139,14 +139,6 @@ class GameScene extends Phaser.Scene {
       repeat: 20,
     }); */
 
-    this.physics.add.overlap(
-      this.player,
-      this.vacuum,
-      this.fuckingVacuumer,
-      null,
-      this
-    );
-
     /*     this.physics.add.overlap(
       this.player,
       this.vacuum2,
@@ -184,6 +176,14 @@ class GameScene extends Phaser.Scene {
       this.player,
       this.carrots,
       this.collectCarrots,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vacuum,
+      this.fuckingVacuumer,
       null,
       this
     );
