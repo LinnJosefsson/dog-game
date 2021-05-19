@@ -118,7 +118,7 @@ class GameScene extends Phaser.Scene {
       .refreshBody();
 
     //Corgi
-    let player;
+    let player; 
     this.player = this.physics.add.sprite(width * 0.5, height * 0.5, 'dog');
 
     this.player.setBounce(0.2);
