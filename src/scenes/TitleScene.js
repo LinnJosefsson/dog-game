@@ -51,8 +51,8 @@ class TitleScene extends Phaser.Scene {
       padding: 15,
     });
 
-    /*     var name = prompt('Please enter your name', 'name');
-    localStorage.setItem('playerName', name); */
+    var name = prompt('Please enter your name', 'name');
+    localStorage.setItem('playerName', name);
 
     let dogName = this.add.text(300, 10, name, {
       font: '26px Arial Black',

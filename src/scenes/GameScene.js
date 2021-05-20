@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 
 let score;
 let scoreText;
-//let doggie = localStorage.getItem('playerName');
+let doggie = localStorage.getItem('playerName');
 
 const createLooped = (scene, totalWidth, texture, scrollFactor) => {
   const w = scene.textures.get(texture).getSourceImage().width;
@@ -217,7 +217,7 @@ class GameScene extends Phaser.Scene {
     winterText.setInteractive({ useHandCursor: true });
     winterText.on('pointerdown', () => this.clickButton());
 
-    scoreText = this.add.text(16, 16, `Score: ${this.score}`, {
+    scoreText = this.add.text(16, 16, `${doggie}'s score: ${this.score}`, {
       font: '28px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
@@ -233,21 +233,21 @@ class GameScene extends Phaser.Scene {
   collectBananas(player, bananas) {
     bananas.destroy();
     this.score += 10;
-    scoreText.setText(`Score: ${this.score}`);
+    scoreText.setText(`${doggie}'s score: ${this.score}`);
     this.eatMusic.play();
   }
 
   collectStrawberry(player, strawberry) {
     strawberry.destroy();
     this.score += 5;
-    scoreText.setText(`Score: ${this.score}`);
+    scoreText.setText(`${doggie}'s score: ${this.score}`);
     this.eatMusic.play();
   }
 
   collectCarrots(player, carrots) {
     carrots.destroy();
     this.score += 15;
-    scoreText.setText(`Score: ${this.score}`);
+    scoreText.setText(`${doggie}'s score: ${this.score}`);
     this.eatMusic.play();
   }
 
