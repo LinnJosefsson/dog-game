@@ -118,17 +118,18 @@ class GameScene extends Phaser.Scene {
       .refreshBody(); */
 
     //fucking vacuumer hate it
-    this.vacuum = this.add.image(900, 650, 'vacuum');
-    this.vacuum.setScale(0.05);
+    this.vacuum = this.add.image(2500, 500, 'vacuum');
+    this.vacuum.setScale(0.13);
     /*  this.vacuum2 = this.add.image(2000, 650, 'vacuum');
     this.vacuum2.setScale(0.05); */
 
     var tween = this.tweens.add({
       targets: this.vacuum,
-      x: '-=48',
+      y: '-=128',
+      duration: 3000,
       ease: 'Sine.easeInOut',
       yoyo: true,
-      repeat: 20,
+      repeat: 1000,
     });
 
     /*    var tween = this.tweens.add({
