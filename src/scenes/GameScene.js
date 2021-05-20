@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 
 let score;
 let scoreText;
+//let doggie = localStorage.getItem('playerName');
 
 const createLooped = (scene, totalWidth, texture, scrollFactor) => {
   const w = scene.textures.get(texture).getSourceImage().width;
@@ -24,6 +25,7 @@ class GameScene extends Phaser.Scene {
     super('GameScene');
     this.score = 0;
   }
+
   preload() {
     this.load.image('sky', 'src/assets/sky.png');
     this.load.image('mountain', 'src/assets/mountains.png');
