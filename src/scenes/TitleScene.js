@@ -6,8 +6,8 @@ class TitleScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('park', '../assets/park.png');
-    this.load.audio('bg-music', '../src/assets/music/music-bg.mp3');
+    this.load.image('park', './assets/park.png');
+    this.load.audio('bg-music', './assets/music/music-bg.mp3');
   }
 
   create() {
