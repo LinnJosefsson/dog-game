@@ -12,6 +12,9 @@ module.exports = {
         res.sendFile(`./src${req.url}`, { root: '.' });
       });
     },
+    watchOptions: {
+      poll: 1000,
+    },
   },
   module: {
     rules: [
