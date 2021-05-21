@@ -6,8 +6,8 @@ class RuleScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('park', 'src/assets/park.png');
-    this.load.image('strawberry-sm', 'src/assets/strawberry-sm.png');
+    this.load.image('park', './assets/park.png');
+    this.load.image('strawberry-sm', './assets/strawberry-sm.png');
   }
 
   create() {

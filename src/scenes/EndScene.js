@@ -11,7 +11,7 @@ class EndScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('park', 'src/assets/park.png');
+    this.load.image('park', './assets/park.png');
   }
 
   create() {

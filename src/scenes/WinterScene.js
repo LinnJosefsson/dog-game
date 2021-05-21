@@ -30,28 +30,28 @@ class WinterScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('wintersky', 'src/assets/wintersky.png');
-    this.load.image('winterground', 'src/assets/winterground.png');
-    this.load.image('background', 'src/assets/winterbg.png');
-    this.load.image('peas', 'src/assets/peas.png');
-    this.load.image('clouds', 'src/assets/clouds.png');
-    this.load.image('chicken', 'src/assets/chicken.png');
-    this.load.image('blueberry', 'src/assets/blueberry.png');
-    this.load.image('vacuum2', 'src/assets/vacuum2.png');
-    this.load.spritesheet('dog', 'src/assets/dog1.png', {
+    this.load.image('wintersky', './assets/wintersky.png');
+    this.load.image('winterground', './assets/winterground.png');
+    this.load.image('background', './assets/winterbg.png');
+    this.load.image('peas', './assets/peas.png');
+    this.load.image('clouds', './assets/clouds.png');
+    this.load.image('chicken', './assets/chicken.png');
+    this.load.image('blueberry', './assets/blueberry.png');
+    this.load.image('vacuum2', './assets/vacuum2.png');
+    this.load.spritesheet('dog', './assets/dog1.png', {
       frameWidth: 111,
       frameHeight: 103,
     });
-    this.load.spritesheet('dogleft', 'src/assets/dogleft.png', {
+    this.load.spritesheet('dogleft', './assets/dogleft.png', {
       frameWidth: 111,
       frameHeight: 103,
     });
-    this.load.spritesheet('jump', 'src/assets/jump.png', {
+    this.load.spritesheet('jump', './assets/jump.png', {
       frameWidth: 111,
       frameHeight: 103,
     });
-    this.load.audio('jump', 'src/assets/music/jump.mp3');
-    this.load.audio('eat', 'src/assets/music/ra.mp3');
+    this.load.audio('jump', './assets/music/jump.mp3');
+    this.load.audio('eat', './assets/music/ra.mp3');
   }
 
   create() {
