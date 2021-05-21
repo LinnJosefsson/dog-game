@@ -117,15 +117,16 @@ class GameScene extends Phaser.Scene {
       .setScale(0.02)
       .refreshBody(); */
 
-    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
-    this.vacuumBig.setScale(0.13);
     this.vacuum2 = this.add.image(900, 650, 'vacuum');
     this.vacuum2.setScale(0.05);
 
-    this.vacuum3 = this.add.image(1500, 650, 'vacuum');
+    this.vacuum3 = this.add.image(2300, 650, 'vacuum');
     this.vacuum3.setScale(0.05);
 
-    var tween2 = this.tweens.add({
+    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
+    this.vacuumBig.setScale(0.13);
+
+    var tweenBig = this.tweens.add({
       targets: this.vacuumBig,
       y: '-=128',
       duration: 3000,
@@ -134,7 +135,7 @@ class GameScene extends Phaser.Scene {
       repeat: 1000,
     });
 
-    var tween = this.tweens.add({
+    var tween2 = this.tweens.add({
       targets: this.vacuum2,
       y: '-=128',
       duration: 2500,
