@@ -103,7 +103,7 @@ class GameScene extends Phaser.Scene {
 
     //Vacuum med static group
 
-    /* const vacuum = this.physics.add.staticGroup();
+    const vacuum = this.physics.add.staticGroup();
     vacuum
       .create(width / 1.5, 615, 'vacuum')
       .setScale(0.05)
@@ -115,38 +115,34 @@ class GameScene extends Phaser.Scene {
     vacuum
       .create(width * 2.2, 615, 'vacuum')
       .setScale(0.02)
-      .refreshBody(); */
+      .refreshBody();
 
     //fucking vacuumer hate it
-    this.vacuum = this.add.image(2500, 500, 'vacuum');
-    this.vacuum.setScale(0.13);
-    /*  this.vacuum2 = this.add.image(2000, 650, 'vacuum');
-    this.vacuum2.setScale(0.05); */
+    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
+    this.vacuumBig.setScale(0.13);
+    this.vacuum2 = this.add.image(900, 650, 'vacuum');
+    this.vacuum2.setScale(0.05);
+
+    this.vacuum3 = this.add.image(1500, 650, 'vacuum');
+    this.vacuum3.setScale(0.05);
 
     var tween = this.tweens.add({
-      targets: this.vacuum,
+      targets: this.vacuum2,
+      y: '-=128',
+      duration: 2500,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    });
+
+    var tween3 = this.tweens.add({
+      targets: this.vacuum3,
       y: '-=128',
       duration: 3000,
       ease: 'Sine.easeInOut',
       yoyo: true,
       repeat: 1000,
     });
-
-    /*    var tween = this.tweens.add({
-      targets: this.vacuum2,
-      x: '-=48',
-      ease: 'Sine.easeInOut',
-      yoyo: true,
-      repeat: 20,
-    }); */
-
-    /*     this.physics.add.overlap(
-      this.player,
-      this.vacuum2,
-      this.fuckingVacuumer,
-      null,
-      this
-    ); */
 
     //Corgi
     let player;
@@ -181,7 +177,14 @@ class GameScene extends Phaser.Scene {
       this
     );
 
-    this.physics.add.overlap(
+    /*    this.physics.add.overlap(
+      this.player,
+      this.vacuumBig,
+      this.fuckingVacuumer,
+      null,
+      this
+    ); */
+    this.physics.add.collider(
       this.player,
       this.vacuum,
       this.fuckingVacuumer,
@@ -267,11 +270,6 @@ class GameScene extends Phaser.Scene {
     this.scene.switch('WinterScene');
   }
 
-  fuckingVacuumer(player, vacuum) {
-    score -= 10;
-    scoreText.setText(`Score: ${score}`);
-  }
-
   collectBananas(player, bananas) {
     bananas.destroy();
     score += 10;
@@ -292,6 +290,35 @@ class GameScene extends Phaser.Scene {
     scoreText.setText(`Score: ${score}`);
     this.eatMusic.play();
   }
+
+  /*   fuckingVacuumer(player, vacuum) {
+    score -= 10;
+    scoreText.setText(`Score: ${score}`);
+  } */
+
+  fuckingVacuumer(player, vacuum) {
+    console.log('hej');
+    if (this.player.body.touching.down || this.vacuum.body.blocked.up) {
+      score += 10;
+      scoreText.setText(`Score: ${score}`);
+      this.vacuum.destroy();
+    }
+  }
+
+  /* fuckingVacuumer(player, vacuum) {
+    this.player.setVelocity(0, 0);
+    this.player.setX(50);
+    this.player.setY(300);
+    this.player.play('idle', true);
+    this.player.setAlpha(0);
+    let tw = this.tweens.add({
+      targets: player,
+      alpha: 1,
+      duration: 100,
+      ease: 'Linear',
+      repeat: 5,
+    });
+  } */
 
   update() {
     const cam = this.cameras.main;
