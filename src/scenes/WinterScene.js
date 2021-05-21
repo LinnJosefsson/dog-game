@@ -37,7 +37,7 @@ class WinterScene extends Phaser.Scene {
     this.load.image('clouds', 'src/assets/clouds.png');
     this.load.image('chicken', 'src/assets/chicken.png');
     this.load.image('blueberry', 'src/assets/blueberry.png');
-    this.load.image('vacuum', 'src/assets/vacuum-cleaner.png');
+    this.load.image('vacuum2', 'src/assets/vacuum2.png');
     this.load.spritesheet('dog', 'src/assets/dog1.png', {
       frameWidth: 111,
       frameHeight: 103,
@@ -68,6 +68,43 @@ class WinterScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'background', 0.8);
 
     createLooped(this, totalWidth, 'winterground', 1);
+
+    //vacuum
+    this.vacuumBig = this.add.image(3150, 680, 'vacuum2');
+    this.vacuumBig.setScale(0.13);
+
+    this.vacuum2 = this.add.image(900, 700, 'vacuum2');
+    this.vacuum2.setScale(0.05);
+
+    this.vacuum3 = this.add.image(2300, 700, 'vacuum2');
+    this.vacuum3.setScale(0.05);
+
+    var tweenBig = this.tweens.add({
+      targets: this.vacuumBig,
+      y: '-=128',
+      duration: 3000,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    });
+
+    var tween2 = this.tweens.add({
+      targets: this.vacuum2,
+      y: '-=78',
+      duration: 2500,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    });
+
+    var tween3 = this.tweens.add({
+      targets: this.vacuum3,
+      y: '-=78',
+      duration: 3000,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    });
 
     //Chicken
 
@@ -107,7 +144,7 @@ class WinterScene extends Phaser.Scene {
 
     //Vacuum med static group
 
-    const vacuum = this.physics.add.staticGroup();
+    /*     const vacuum = this.physics.add.staticGroup();
     vacuum
       .create(width / 1.5, 735, 'vacuum')
       .setScale(0.05)
@@ -119,7 +156,7 @@ class WinterScene extends Phaser.Scene {
     vacuum
       .create(width * 2.2, 735, 'vacuum')
       .setScale(0.02)
-      .refreshBody();
+      .refreshBody(); */
 
     //Corgi
     let player;
