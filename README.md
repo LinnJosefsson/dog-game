@@ -1,8 +1,8 @@
-INSERT MANDATORY GIF
+![](https://media.giphy.com/media/h7Ft1qPnW1egSSlslC/giphy.gif)
 
-# Project Title
+# Feed the doggie
 
-Text about the project and which JavaScript library you're using. This would also be a great place to link the game on Netlify.
+In this project we built a game with Phaser 3. Your player is an adorable corgi, and the goal is to eat fruits, vegetables and chicken but be on the lokout and avoid the dreaded vacuum! Kudos to you if you can to play the whole game with music on :grimacing:
 
 # Installation
 
@@ -14,6 +14,7 @@ Text about the project and which JavaScript library you're using. This would als
 # Changelog
 
 - [#1 - Implemented a Phaser starter template, added our Game scene, changed bg and created a Title Scene](https://github.com/LinnJosefsson/dog-game/commit/a31c853922b2c3f461936bb0b6ce05ac64089eca)
+- [#2 - Created Winter Scene, Rule Scene and an End Scene, added music and sounds and some small fixes](https://github.com/LinnJosefsson/dog-game/pull/2)
 
 # Code Review
 
@@ -30,7 +31,7 @@ Tested by the following people:
 
 Tested by the following muggles (non-coders):
 
-1. Jane Doe
+1. Peter Szabo
 2. John Doe
 3. Jane Doe
 4. John Doe

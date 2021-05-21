@@ -21,7 +21,7 @@ const createLooped = (scene, totalWidth, texture, scrollFactor) => {
 
 class WinterScene extends Phaser.Scene {
   constructor() {
-    super('WinterScene');
+    super({ key: 'WinterScene' });
   }
 
   init(data) {

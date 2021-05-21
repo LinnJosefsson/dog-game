@@ -51,7 +51,7 @@ class TitleScene extends Phaser.Scene {
       padding: 15,
     });
 
-    let dogName = this.add.text(300, 10, '', {
+    let dogName = this.add.text(300, 10, name, {
       font: '26px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',

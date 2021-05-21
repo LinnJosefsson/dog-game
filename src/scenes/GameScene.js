@@ -21,9 +21,10 @@ const createLooped = (scene, totalWidth, texture, scrollFactor) => {
 
 class GameScene extends Phaser.Scene {
   constructor() {
-    super('GameScene');
+    super({ key: 'GameScene' });
     this.score = 0;
   }
+
   preload() {
     this.load.image('sky', 'src/assets/sky.png');
     this.load.image('mountain', 'src/assets/mountains.png');
@@ -74,7 +75,6 @@ class GameScene extends Phaser.Scene {
 
     Phaser.Actions.Call(this.bananas.getChildren(), function (banana) {
       banana.body.allowGravity = false;
-      //banana.body.immovable = true;
     });
 
     //Strawberry
@@ -103,7 +103,7 @@ class GameScene extends Phaser.Scene {
 
     //Vacuum med static group
 
-    /* const vacuum = this.physics.add.staticGroup();
+    /*  const vacuum = this.physics.add.staticGroup();
     vacuum
       .create(width / 1.5, 615, 'vacuum')
       .setScale(0.05)
@@ -117,35 +117,40 @@ class GameScene extends Phaser.Scene {
       .setScale(0.02)
       .refreshBody(); */
 
-    //fucking vacuumer hate it
-    this.vacuum = this.add.image(900, 650, 'vacuum');
-    this.vacuum.setScale(0.05);
-    /*  this.vacuum2 = this.add.image(2000, 650, 'vacuum');
-    this.vacuum2.setScale(0.05); */
+    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
+    this.vacuumBig.setScale(0.13);
+    this.vacuum2 = this.add.image(900, 650, 'vacuum');
+    this.vacuum2.setScale(0.05);
 
-    var tween = this.tweens.add({
-      targets: this.vacuum,
-      x: '-=48',
+    this.vacuum3 = this.add.image(1500, 650, 'vacuum');
+    this.vacuum3.setScale(0.05);
+
+    var tween2 = this.tweens.add({
+      targets: this.vacuumBig,
+      y: '-=128',
+      duration: 3000,
       ease: 'Sine.easeInOut',
       yoyo: true,
-      repeat: 20,
+      repeat: 1000,
     });
 
-    /*    var tween = this.tweens.add({
+    var tween = this.tweens.add({
       targets: this.vacuum2,
-      x: '-=48',
+      y: '-=128',
+      duration: 2500,
       ease: 'Sine.easeInOut',
       yoyo: true,
-      repeat: 20,
-    }); */
+      repeat: 1000,
+    });
 
-    /*     this.physics.add.overlap(
-      this.player,
-      this.vacuum2,
-      this.fuckingVacuumer,
-      null,
-      this
-    ); */
+    var tween3 = this.tweens.add({
+      targets: this.vacuum3,
+      y: '-=128',
+      duration: 3000,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    });
 
     //Corgi
     let player; 
@@ -221,25 +226,6 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    //skapade funktion isället
-
-    /*  const m = this.add
-      .image(0, height, "mountain")
-      .setOrigin(0, 1)
-      .setScrollFactor(0.25);
-
-    this.add
-      .image(m.width, height, "mountain")
-      .setOrigin(0, 1)
-      .setScrollFactor(0.25); 
-
-    this.add.image(0, height, "plateau").setOrigin(0, 1).setScrollFactor(0.5);
-
-    this.add.image(0, height, "ground").setOrigin(0, 1).setScrollFactor(1);
-    this.add.image(0, height, "plant").setOrigin(0, 1).setScrollFactor(1.25);*/
-
-    //this.cameras.main.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height);
-
     this.cameras.main.setBounds(0, 0, width * 3, height);
     this.cameras.main.startFollow(this.player);
 
@@ -261,7 +247,7 @@ class GameScene extends Phaser.Scene {
     });
     scoreText.setScrollFactor(0, 0);
   }
-  //kanske vi kan ha multiple levels?
+
   clickButton() {
     this.scene.start('WinterScene', { totalScore: this.score });
   }
@@ -310,13 +296,11 @@ class GameScene extends Phaser.Scene {
     }
 
     if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-170);
-      //this.player.anims.play('up', true);
+      this.player.setVelocityY(-150);
       this.jumpMusic.play();
     } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
       this.player.setVelocityY(-260);
       this.jumpMusic.play();
-      //this.player.anims.play('up', true);
     }
   }
 }
