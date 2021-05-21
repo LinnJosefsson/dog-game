@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 
 let score;
 let scoreText;
-//let doggie = localStorage.getItem('playerName');
 
 const createLooped = (scene, totalWidth, texture, scrollFactor) => {
   const w = scene.textures.get(texture).getSourceImage().width;
@@ -22,7 +21,7 @@ const createLooped = (scene, totalWidth, texture, scrollFactor) => {
 
 class GameScene extends Phaser.Scene {
   constructor() {
-    super('GameScene');
+    super({ key: 'GameScene' });
     this.score = 0;
   }
 
@@ -76,7 +75,6 @@ class GameScene extends Phaser.Scene {
 
     Phaser.Actions.Call(this.bananas.getChildren(), function (banana) {
       banana.body.allowGravity = false;
-      //banana.body.immovable = true;
     });
 
     //Strawberry
@@ -185,25 +183,6 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    //skapade funktion isället
-
-    /*  const m = this.add
-      .image(0, height, "mountain")
-      .setOrigin(0, 1)
-      .setScrollFactor(0.25);
-
-    this.add
-      .image(m.width, height, "mountain")
-      .setOrigin(0, 1)
-      .setScrollFactor(0.25); 
-
-    this.add.image(0, height, "plateau").setOrigin(0, 1).setScrollFactor(0.5);
-
-    this.add.image(0, height, "ground").setOrigin(0, 1).setScrollFactor(1);
-    this.add.image(0, height, "plant").setOrigin(0, 1).setScrollFactor(1.25);*/
-
-    //this.cameras.main.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height);
-
     this.cameras.main.setBounds(0, 0, width * 3, height);
     this.cameras.main.startFollow(this.player);
 
@@ -225,7 +204,7 @@ class GameScene extends Phaser.Scene {
     });
     scoreText.setScrollFactor(0, 0);
   }
-  //kanske vi kan ha multiple levels?
+
   clickButton() {
     this.scene.start('WinterScene', { totalScore: this.score });
   }
@@ -270,12 +249,10 @@ class GameScene extends Phaser.Scene {
 
     if (this.cursors.up.isDown && this.player.body.blocked.down) {
       this.player.setVelocityY(-150);
-      //this.player.anims.play('up', true);
       this.jumpMusic.play();
     } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
       this.player.setVelocityY(-250);
       this.jumpMusic.play();
-      //this.player.anims.play('up', true);
     }
   }
 }

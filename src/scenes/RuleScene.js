@@ -34,20 +34,19 @@ class RuleScene extends Phaser.Scene {
     });
 
     startText.setInteractive({ useHandCursor: true });
-    startText.on('pointerdown', () => this.clickButton());
+    startText.on('pointerdown', () => this.backToMain());
 
     let ruleText =
       'Collect as many fruits and vegetables as you can\nAvoid vacuum cleaners\nTry space for double jump';
-    let rules = this.add.text(250, 300, ruleText, {
+    this.add.text(250, 300, ruleText, {
       font: '28px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
-
       padding: 15,
     });
   }
 
-  clickButton() {
+  backToMain() {
     this.scene.switch('TitleScene');
   }
 }

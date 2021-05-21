@@ -33,6 +33,19 @@ class EndScene extends Phaser.Scene {
     scoreText.stroke = '#173f5f';
     scoreText.strokeThickness = 16;
     scoreText.setShadow(2, 2, '#333333', 2, true, true);
+
+    let startText = this.add.text(930, 700, 'Back to main', {
+      font: '32px Arial Black',
+      fill: '#f6d55c',
+      backgroundColor: '#173f5f',
+      padding: 10,
+    });
+
+    startText.setInteractive({ useHandCursor: true });
+    startText.on('pointerdown', () => this.backToMain());
+  }
+  backToMain() {
+    this.scene.switch('TitleScene');
   }
 }
 
