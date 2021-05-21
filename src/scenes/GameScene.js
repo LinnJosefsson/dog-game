@@ -26,29 +26,29 @@ class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('sky', 'src/assets/sky.png');
-    this.load.image('mountain', 'src/assets/mountains.png');
-    this.load.image('plateau', 'src/assets/plateau.png');
-    this.load.image('ground', 'src/assets/ground.png');
-    this.load.image('plant', 'src/assets/plant.png');
-    this.load.image('carrot-sm', 'src/assets/carrot-sm.png');
-    this.load.image('banana-sm', 'src/assets/banana-sm.png');
-    this.load.image('strawberry-sm', 'src/assets/strawberry-sm.png');
-    this.load.image('vacuum', 'src/assets/vacuum-cleaner.png');
-    this.load.spritesheet('dog', 'src/assets/dog1.png', {
+    this.load.image('sky', '../src/assets/sky.png');
+    this.load.image('mountain', '../src/assets/mountains.png');
+    this.load.image('plateau', '../src/assets/plateau.png');
+    this.load.image('ground', '../src/assets/ground.png');
+    this.load.image('plant', '../src/assets/plant.png');
+    this.load.image('carrot-sm', '../src/assets/carrot-sm.png');
+    this.load.image('banana-sm', '../src/assets/banana-sm.png');
+    this.load.image('strawberry-sm', '../src/assets/strawberry-sm.png');
+    this.load.image('vacuum', '../src/assets/vacuum-cleaner.png');
+    this.load.spritesheet('dog', '../src/assets/dog1.png', {
       frameWidth: 111,
       frameHeight: 103,
     });
-    this.load.spritesheet('dogleft', 'src/assets/dogleft.png', {
+    this.load.spritesheet('dogleft', '../src/assets/dogleft.png', {
       frameWidth: 111,
       frameHeight: 103,
     });
-    this.load.spritesheet('jump', 'src/assets/jump.png', {
+    this.load.spritesheet('jump', '../src/assets/jump.png', {
       frameWidth: 111,
       frameHeight: 103,
     });
-    this.load.audio('jump', 'src/assets/music/jump.mp3');
-    this.load.audio('eat', 'src/assets/music/ra.mp3');
+    this.load.audio('jump', '../src/assets/music/jump.mp3');
+    this.load.audio('eat', '../src/assets/music/ra.mp3');
   }
 
   create() {
