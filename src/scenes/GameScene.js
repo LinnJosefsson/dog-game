@@ -103,7 +103,7 @@ class GameScene extends Phaser.Scene {
 
     //Vacuum med static group
 
-    const vacuum = this.physics.add.staticGroup();
+    /*  const vacuum = this.physics.add.staticGroup();
     vacuum
       .create(width / 1.5, 615, 'vacuum')
       .setScale(0.05)
@@ -115,7 +115,42 @@ class GameScene extends Phaser.Scene {
     vacuum
       .create(width * 2.2, 615, 'vacuum')
       .setScale(0.02)
-      .refreshBody();
+      .refreshBody(); */
+
+    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
+    this.vacuumBig.setScale(0.13);
+    this.vacuum2 = this.add.image(900, 650, 'vacuum');
+    this.vacuum2.setScale(0.05);
+
+    this.vacuum3 = this.add.image(1500, 650, 'vacuum');
+    this.vacuum3.setScale(0.05);
+
+    var tween2 = this.tweens.add({
+      targets: this.vacuumBig,
+      y: '-=128',
+      duration: 3000,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    });
+
+    var tween = this.tweens.add({
+      targets: this.vacuum2,
+      y: '-=128',
+      duration: 2500,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    });
+
+    var tween3 = this.tweens.add({
+      targets: this.vacuum3,
+      y: '-=128',
+      duration: 3000,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    });
 
     //Corgi
     let player;
