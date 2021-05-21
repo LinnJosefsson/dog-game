@@ -14,7 +14,7 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 # Changelog
 
 - [#1 - Implemented a Phaser starter template, added our Game scene, changed bg and created a Title Scene](https://github.com/LinnJosefsson/dog-game/commit/a31c853922b2c3f461936bb0b6ce05ac64089eca)
-- [#1 - Created Winter Scene, Rule Scene and an End Scene, added music and sounds and some small fixes]()
+- [#2 - Created Winter Scene, Rule Scene and an End Scene, added music and sounds and some small fixes](https://github.com/LinnJosefsson/dog-game/pull/2)
 
 # Code Review
 
