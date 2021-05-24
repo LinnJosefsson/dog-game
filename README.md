@@ -2,7 +2,7 @@
 
 # Feed the doggie
 
-In this project we built a game with Phaser 3. Your player is an adorable corgi, and the goal is to eat fruits, vegetables and chicken but be on the lokout and avoid the dreaded vacuum! Kudos to you if you can to play the whole game with music on :grimacing:
+In this project we built a game with Phaser 3. Your player is an adorable corgi, and the goal is to eat fruits, vegetables and chicken but be on the lookout and avoid the dreaded vacuums! Kudos to you if you can to play the whole game with music on :grimacing:
 
 # Installation
 
