@@ -165,7 +165,7 @@ class WinterScene extends Phaser.Scene {
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
 
-    this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height - 50);
+    this.physics.world.setBounds(0, 0, width * 3, height - 50);
 
     this.physics.add.overlap(
       this.player,
