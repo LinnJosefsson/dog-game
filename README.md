@@ -18,6 +18,7 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 - [#3 - Vacuum/enemy moves in GameScene](https://github.com/LinnJosefsson/dog-game/pull/3)
 - [#4 - Vacuum/enemy moves in WinterScene](https://github.com/LinnJosefsson/dog-game/pull/4)
 - [#5 - Deploys with assets folder](https://github.com/LinnJosefsson/dog-game/pull/6)
+- [#6 - README updates, stopped debug mode, started music](https://github.com/LinnJosefsson/dog-game/pull/7)
 
 # Code Review
 
