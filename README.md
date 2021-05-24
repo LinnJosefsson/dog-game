@@ -15,7 +15,10 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 
 - [#1 - Implemented a Phaser starter template, added our Game scene, changed bg and created a Title Scene](https://github.com/LinnJosefsson/dog-game/commit/a31c853922b2c3f461936bb0b6ce05ac64089eca)
 - [#2 - Created Winter Scene, Rule Scene and an End Scene, added music and sounds and some small fixes](https://github.com/LinnJosefsson/dog-game/pull/2)
-- [#3 - Now it should deploy with assets](https://github.com/LinnJosefsson/dog-game/pull/6)
+- [#3 - Vacuum/enemy moves in GameScene](https://github.com/LinnJosefsson/dog-game/pull/3)
+- [#4 - Vacuum/enemy moves in WinterScene](https://github.com/LinnJosefsson/dog-game/pull/4)
+- [#5 - Deploys with assets folder](https://github.com/LinnJosefsson/dog-game/pull/6)
+- [#6 - README updates, stopped debug mode, started music](https://github.com/LinnJosefsson/dog-game/pull/7)
 
 # Code Review
 
@@ -33,6 +36,6 @@ Tested by the following people:
 Tested by the following muggles (non-coders):
 
 1. Peter Szabo
-2. John Doe
-3. Jane Doe
+2. Marie Pell
+3. Liza Madarasz
 4. John Doe
