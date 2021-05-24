@@ -70,13 +70,13 @@ class WinterScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'winterground', 1);
 
     //vacuum
-    this.vacuumBig = this.add.image(3150, 680, 'vacuum2');
+    this.vacuumBig = this.add.image(3150, 580, 'vacuum2');
     this.vacuumBig.setScale(0.13);
 
-    this.vacuum2 = this.add.image(900, 700, 'vacuum2');
+    this.vacuum2 = this.add.image(900, 600, 'vacuum2');
     this.vacuum2.setScale(0.05);
 
-    this.vacuum3 = this.add.image(2300, 700, 'vacuum2');
+    this.vacuum3 = this.add.image(2300, 600, 'vacuum2');
     this.vacuum3.setScale(0.05);
 
     var tweenBig = this.tweens.add({
@@ -111,7 +111,7 @@ class WinterScene extends Phaser.Scene {
     this.chicken = this.physics.add.group({
       key: 'chicken',
       repeat: 11,
-      setXY: { x: 12, y: 550, stepX: 350 },
+      setXY: { x: 12, y: 450, stepX: 350 },
     });
 
     Phaser.Actions.Call(this.chicken.getChildren(), function (chicke) {
@@ -123,7 +123,7 @@ class WinterScene extends Phaser.Scene {
     this.blueberry = this.physics.add.group({
       key: 'blueberry',
       repeat: 11,
-      setXY: { x: 80, y: 735, stepX: 600 },
+      setXY: { x: 80, y: 635, stepX: 600 },
     });
 
     Phaser.Actions.Call(this.blueberry.getChildren(), function (blueber) {
@@ -135,7 +135,7 @@ class WinterScene extends Phaser.Scene {
     this.peas = this.physics.add.group({
       key: 'peas',
       repeat: 4,
-      setXY: { x: 200, y: 600, stepX: 800 },
+      setXY: { x: 200, y: 500, stepX: 800 },
     });
 
     Phaser.Actions.Call(this.peas.getChildren(), function (pea) {

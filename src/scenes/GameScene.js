@@ -70,7 +70,7 @@ class GameScene extends Phaser.Scene {
     this.bananas = this.physics.add.group({
       key: 'banana-sm',
       repeat: 11,
-      setXY: { x: 12, y: 635, stepX: 350 },
+      setXY: { x: 12, y: 535, stepX: 350 },
     });
 
     Phaser.Actions.Call(this.bananas.getChildren(), function (banana) {
@@ -82,7 +82,7 @@ class GameScene extends Phaser.Scene {
     this.strawberry = this.physics.add.group({
       key: 'strawberry-sm',
       repeat: 11,
-      setXY: { x: 80, y: 600, stepX: 600 },
+      setXY: { x: 80, y: 500, stepX: 600 },
     });
 
     Phaser.Actions.Call(this.strawberry.getChildren(), function (strawber) {
@@ -94,7 +94,7 @@ class GameScene extends Phaser.Scene {
     this.carrots = this.physics.add.group({
       key: 'carrot-sm',
       repeat: 4,
-      setXY: { x: 200, y: 450, stepX: 800 },
+      setXY: { x: 200, y: 350, stepX: 800 },
     });
 
     Phaser.Actions.Call(this.carrots.getChildren(), function (carrot) {
@@ -117,13 +117,13 @@ class GameScene extends Phaser.Scene {
       .setScale(0.02)
       .refreshBody(); */
 
-    this.vacuum2 = this.add.image(900, 650, 'vacuum');
+    this.vacuum2 = this.add.image(900, 550, 'vacuum');
     this.vacuum2.setScale(0.05);
 
-    this.vacuum3 = this.add.image(2300, 650, 'vacuum');
+    this.vacuum3 = this.add.image(2300, 550, 'vacuum');
     this.vacuum3.setScale(0.05);
 
-    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
+    this.vacuumBig = this.add.image(3150, 400, 'vacuum');
     this.vacuumBig.setScale(0.13);
 
     var tweenBig = this.tweens.add({

@@ -19,7 +19,7 @@ class EndScene extends Phaser.Scene {
     const height = this.scale.height;
     const park = this.add.image(0, 0, 'park');
     park.setOrigin(0, 0);
-    park.setTint(0x6aa84f);
+    park.setTint(0x3b6180);
 
     let scoreText = this.add.text(
       width / 3,
@@ -34,7 +34,7 @@ class EndScene extends Phaser.Scene {
     scoreText.strokeThickness = 16;
     scoreText.setShadow(2, 2, '#333333', 2, true, true);
 
-    let startText = this.add.text(930, 700, 'Back to main', {
+    let startText = this.add.text(930, 600, 'Back to main', {
       font: '32px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
