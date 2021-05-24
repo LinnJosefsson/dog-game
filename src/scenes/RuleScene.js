@@ -26,7 +26,7 @@ class RuleScene extends Phaser.Scene {
     title.strokeThickness = 16;
     title.setShadow(2, 2, '#333333', 2, true, true);
 
-    let startText = this.add.text(930, 700, 'Back to main', {
+    let startText = this.add.text(930, 600, 'Back to main', {
       font: '32px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
