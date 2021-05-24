@@ -224,7 +224,7 @@ class WinterScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.cameras.main.setBounds(0, 0, width * 3, height);
+    this.cameras.main.setBounds(0, 0, width * 3.5, height);
     this.cameras.main.startFollow(this.player);
 
     let backText = this.add.text(width * 2, 100, 'End Scene', {

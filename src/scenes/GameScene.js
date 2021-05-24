@@ -1,3 +1,4 @@
+import { none } from 'html-webpack-plugin/lib/chunksorter';
 import Phaser from 'phaser';
 
 let score;
@@ -47,8 +48,9 @@ class GameScene extends Phaser.Scene {
       frameWidth: 111,
       frameHeight: 103,
     });
-    this.load.audio('jump', './assets/music/jump.mp3');
-    this.load.audio('eat', './assets/music/ra.mp3');
+    this.load.audio('jump', '../../assets/music/jump.mp3');
+    this.load.audio('eat', '../../assets/music/ra.mp3');
+    // ./assets/music/jump.mp3, ./assets/music/ra.mp3
   }
 
   create() {
@@ -65,8 +67,12 @@ class GameScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'ground', 1);
     createLooped(this, totalWidth, 'plant', 1.25);
 
-    //Banana
+    // WORLD BOUNDS (also on line ~155 as comment)
+    this.physics.world.setBounds(0, 0, width * 3.5, height - 160);
 
+    /*  GAME ITEMS
+    ------------------------------------------ */
+    // Banana
     this.bananas = this.physics.add.group({
       key: 'banana-sm',
       repeat: 11,
@@ -77,8 +83,7 @@ class GameScene extends Phaser.Scene {
       banana.body.allowGravity = false;
     });
 
-    //Strawberry
-
+    // Strawberry
     this.strawberry = this.physics.add.group({
       key: 'strawberry-sm',
       repeat: 11,
@@ -89,8 +94,7 @@ class GameScene extends Phaser.Scene {
       strawber.body.allowGravity = false;
     });
 
-    //Carrot
-
+    // Carrot
     this.carrots = this.physics.add.group({
       key: 'carrot-sm',
       repeat: 4,
@@ -101,22 +105,7 @@ class GameScene extends Phaser.Scene {
       carrot.body.allowGravity = false;
     });
 
-    //Vacuum med static group
-
-    /*  const vacuum = this.physics.add.staticGroup();
-    vacuum
-      .create(width / 1.5, 615, 'vacuum')
-      .setScale(0.05)
-      .refreshBody();
-    vacuum
-      .create(width * 1.8, 615, 'vacuum')
-      .setScale(0.04)
-      .refreshBody();
-    vacuum
-      .create(width * 2.2, 615, 'vacuum')
-      .setScale(0.02)
-      .refreshBody(); */
-
+    // Vacuums (static group?)
     this.vacuum2 = this.add.image(900, 650, 'vacuum');
     this.vacuum2.setScale(0.05);
 
@@ -153,15 +142,19 @@ class GameScene extends Phaser.Scene {
       repeat: 1000,
     });
 
-    //Corgi
+    // Corgi Player
     let player;
     this.player = this.physics.add.sprite(width * 0.5, height * 0.5, 'dog');
 
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
+    
+    // Flyttade upp till början av create()
+       // this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height - 160);
+       // this.physics.world.setBounds(0, 0, width * 3.5, height - 160);
 
-    this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height - 160);
-
+  /* OVERLAPS - PLAYER AND ITEMS
+  ----------------------------------------------------- */
     this.physics.add.overlap(
       this.player,
       this.bananas,
@@ -194,6 +187,8 @@ class GameScene extends Phaser.Scene {
       this
     );
 
+    /* CORGI PLAYER POSITIONS 
+    -------------------------------------------*/
     this.anims.create({
       key: 'idle',
       frames: [{ key: 'dog', frame: 2 }],
@@ -227,18 +222,41 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.cameras.main.setBounds(0, 0, width * 3, height);
-    this.cameras.main.startFollow(this.player);
+     // CAMERA MOVEMENT
+     this.cameras.main.setBounds(0, 0, width * 3.5, height);
+     this.cameras.main.startFollow(this.player);
 
-    let winterText = this.add.text(width * 2, 100, 'Winter Wonderland', {
+     // 'BUTTON' TO NEW LEVEL
+     let goalText = this.add.text(3700, 200, 'Level 1 Completed!', {
+      font: '40px Arial Black',
+      fill: '#f6d55c',
+      backgroundColor: '#173f5f',
+      padding: 10,
+      wordWrap: { width: 250 },
+    });
+    let newLevelText = this.add.text(3700, 300, 'Click here for the Next Level', {
       font: '25px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
       padding: 10,
+      wordWrap: { width: 200 },
     });
 
-    winterText.setInteractive({ useHandCursor: true });
-    winterText.on('pointerdown', () => this.clickButton());
+    // Player stops on overlap (lite onödigt kanske?)
+    //this.player.setMaxVelocity(3750);
+
+    //if (this.player. GET X VALUE SOMEHOW === )
+    // this.physics.add.overlap(
+    //   this.player,
+    //   this.newLevelText,
+    //   // this.player.setVelocityX(0), // player rör sig inte i x-led
+    //   this.player.anims.stop(null, true), // player image "springer" inte
+    //   null,
+    //   this
+    // );
+
+    newLevelText.setInteractive({ useHandCursor: true });
+    newLevelText.on('pointerdown', () => this.newLevel());
 
     scoreText = this.add.text(16, 16, `Score: ${this.score}`, {
       font: '28px Arial Black',
@@ -249,12 +267,14 @@ class GameScene extends Phaser.Scene {
     scoreText.setScrollFactor(0, 0);
   }
 
-  clickButton() {
+  /* FUNCTIONS 
+  ------------------------------------------*/
+  newLevel() {
     this.scene.start('WinterScene', { totalScore: this.score });
   }
 
   fuckingVacuumer(player, vacuum) {
-    score -= 10;
+    this.score -= 10;
     scoreText.setText(`Score: ${score}`);
   }
 
@@ -290,7 +310,7 @@ class GameScene extends Phaser.Scene {
     } else if (this.cursors.right.isDown) {
       cam.scrollX += speed;
       this.player.setVelocityX(160);
-      this.player.anims.play('right', true);
+      this.player.anims.play('right', true); 
     } else {
       this.player.setVelocityX(0);
       this.player.anims.stop(null, true);
@@ -303,6 +323,11 @@ class GameScene extends Phaser.Scene {
       this.player.setVelocityY(-260);
       this.jumpMusic.play();
     }
+
+    // if (this.player./* SOMETHING */ == 800) {
+    //   this.player.setVelocityX(0);
+    //   this.player.anims.stop(null, true);
+    // }
   }
 }
 
