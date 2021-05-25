@@ -47,9 +47,8 @@ class GameScene extends Phaser.Scene {
       frameWidth: 111,
       frameHeight: 103,
     });
-    this.load.audio('jump', '../../assets/music/jump.mp3');
-    this.load.audio('eat', '../../assets/music/ra.mp3');
-    // ./assets/music/jump.mp3, ./assets/music/ra.mp3
+    this.load.audio('jump', './assets/music/jump.mp3');
+    this.load.audio('eat', './assets/music/ra.mp3');
   }
 
   create() {
