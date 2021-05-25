@@ -14,11 +14,11 @@ class RuleScene extends Phaser.Scene {
     const park = this.add.image(0, 0, 'park');
     park.setOrigin(0, 0);
 
-    this.add.image(580, 130, 'strawberry-sm');
-    let flipped = this.add.image(785, 130, 'strawberry-sm');
+    this.add.image(550, 130, 'strawberry-sm');
+    let flipped = this.add.image(755, 130, 'strawberry-sm');
     flipped.flipX = true;
 
-    let title = this.add.text(600, 100, 'Rules', {
+    let title = this.add.text(570, 100, 'Rules', {
       font: '54px Arial Black',
       fill: '#f6d55c',
     });
@@ -37,9 +37,9 @@ class RuleScene extends Phaser.Scene {
     startText.on('pointerdown', () => this.backToMain());
 
     let ruleText =
-      'Collect as many fruits and vegetables as you can\nAvoid vacuum cleaners\nTry space for double jump';
-    this.add.text(250, 300, ruleText, {
-      font: '28px Arial Black',
+      '- Eat as many fruits and vegetables as you can\n- Avoid vacuum cleaners...they are scary!\n- Press space for double jump';
+    this.add.text(200, 300, ruleText, {
+      font: '32px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
       padding: 15,
