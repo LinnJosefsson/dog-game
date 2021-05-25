@@ -43,9 +43,10 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 
 Tested by the following people:
 
+
 1. Gilda Eklöf
 2. Evelyn Fredin
-3. Jane Doe
+3. Ida From
 4. John Doe
 
 Tested by the following muggles (non-coders):
@@ -53,4 +54,4 @@ Tested by the following muggles (non-coders):
 1. Peter Szabo
 2. Marie Pell
 3. Liza Madarasz
-4. John Doe
+4. Ellen Danielsson
