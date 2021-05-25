@@ -36,6 +36,7 @@ class GameScene extends Phaser.Scene {
     this.load.image('banana-sm', './assets/banana-sm.png');
     this.load.image('strawberry-sm', './assets/strawberry-sm.png');
     this.load.image('vacuum', './assets/vacuum-cleaner.png');
+    this.load.image('vacuum-sm', './assets/vacuum-sm.png');
     this.load.spritesheet('dog', './assets/dog1.png', {
       frameWidth: 111,
       frameHeight: 103,
@@ -76,7 +77,7 @@ class GameScene extends Phaser.Scene {
     this.bananas = this.physics.add.group({
       key: 'banana-sm',
       repeat: 11,
-      setXY: { x: 12, y: 635, stepX: 350 },
+      setXY: { x: 12, y: 535, stepX: 350 },
     });
 
     Phaser.Actions.Call(this.bananas.getChildren(), function (banana) {
@@ -87,7 +88,7 @@ class GameScene extends Phaser.Scene {
     this.strawberry = this.physics.add.group({
       key: 'strawberry-sm',
       repeat: 11,
-      setXY: { x: 80, y: 600, stepX: 600 },
+      setXY: { x: 80, y: 500, stepX: 600 },
     });
 
     Phaser.Actions.Call(this.strawberry.getChildren(), function (strawber) {
@@ -98,21 +99,31 @@ class GameScene extends Phaser.Scene {
     this.carrots = this.physics.add.group({
       key: 'carrot-sm',
       repeat: 4,
-      setXY: { x: 200, y: 450, stepX: 800 },
+      setXY: { x: 200, y: 350, stepX: 800 },
     });
 
     Phaser.Actions.Call(this.carrots.getChildren(), function (carrot) {
       carrot.body.allowGravity = false;
     });
 
-    // Vacuums (static group?)
-    this.vacuum2 = this.add.image(900, 650, 'vacuum');
+    // Vacuums
+    this.vacuums = this.physics.add.group({
+      key: 'vacuum-sm',
+      repeat: 2,
+      setXY: { x: 100, y: 520, stepX: 800 },
+    });
+
+    Phaser.Actions.Call(this.vacuums.getChildren(), function (vacuum) {
+      vacuum.body.allowGravity = false;
+    });
+
+    this.vacuum2 = this.add.image(1200, 520, 'vacuum');
     this.vacuum2.setScale(0.05);
 
-    this.vacuum3 = this.add.image(2300, 650, 'vacuum');
+    this.vacuum3 = this.add.image(2300, 520, 'vacuum');
     this.vacuum3.setScale(0.05);
 
-    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
+    this.vacuumBig = this.add.image(3150, 400, 'vacuum');
     this.vacuumBig.setScale(0.13);
 
     var tweenBig = this.tweens.add({
@@ -126,7 +137,7 @@ class GameScene extends Phaser.Scene {
 
     var tween2 = this.tweens.add({
       targets: this.vacuum2,
-      y: '-=128',
+      x: '-=28',
       duration: 2500,
       ease: 'Sine.easeInOut',
       yoyo: true,
@@ -135,7 +146,7 @@ class GameScene extends Phaser.Scene {
 
     var tween3 = this.tweens.add({
       targets: this.vacuum3,
-      y: '-=128',
+      x: '-=48',
       duration: 3000,
       ease: 'Sine.easeInOut',
       yoyo: true,
@@ -152,10 +163,11 @@ class GameScene extends Phaser.Scene {
     // Flyttade upp till början av create()
        // this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height - 160);
        // this.physics.world.setBounds(0, 0, width * 3.5, height - 160);
+       // this.physics.world.setBounds(0, 0, width * 3, height - 160);
 
   /* OVERLAPS - PLAYER AND ITEMS
   ----------------------------------------------------- */
-    this.physics.add.overlap(
+     this.physics.add.overlap(
       this.player,
       this.bananas,
       this.collectBananas,
@@ -181,8 +193,8 @@ class GameScene extends Phaser.Scene {
 
     this.physics.add.overlap(
       this.player,
-      this.vacuum,
-      this.fuckingVacuumer,
+      this.vacuums,
+      this.hitByVacuum,
       null,
       this
     );
@@ -227,7 +239,7 @@ class GameScene extends Phaser.Scene {
      this.cameras.main.startFollow(this.player);
 
      // 'BUTTON' TO NEW LEVEL
-     let goalText = this.add.text(3700, 200, 'Level 1 Completed!', {
+     this.add.text(3700, 200, 'Level 1 Completed!', {
       font: '40px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
@@ -241,19 +253,6 @@ class GameScene extends Phaser.Scene {
       padding: 10,
       wordWrap: { width: 200 },
     });
-
-    // Player stops on overlap (lite onödigt kanske?)
-    //this.player.setMaxVelocity(3750);
-
-    //if (this.player. GET X VALUE SOMEHOW === )
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.newLevelText,
-    //   // this.player.setVelocityX(0), // player rör sig inte i x-led
-    //   this.player.anims.stop(null, true), // player image "springer" inte
-    //   null,
-    //   this
-    // );
 
     newLevelText.setInteractive({ useHandCursor: true });
     newLevelText.on('pointerdown', () => this.newLevel());
@@ -299,6 +298,17 @@ class GameScene extends Phaser.Scene {
     this.eatMusic.play();
   }
 
+  collectCarrots(player, carrots) {
+    carrots.destroy();
+    this.score += 15;
+    scoreText.setText(`Score: ${this.score}`);
+    this.eatMusic.play();
+  }
+  hitByVacuum(player, vacuums) {
+    this.score -= 1;
+    scoreText.setText(`Score: ${this.score}`);
+  }
+
   update() {
     const cam = this.cameras.main;
     const speed = 30;
@@ -317,17 +327,12 @@ class GameScene extends Phaser.Scene {
     }
 
     if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-150);
+      this.player.setVelocityY(-250);
       this.jumpMusic.play();
     } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-260);
+      this.player.setVelocityY(-350);
       this.jumpMusic.play();
     }
-
-    // if (this.player./* SOMETHING */ == 800) {
-    //   this.player.setVelocityX(0);
-    //   this.player.anims.stop(null, true);
-    // }
   }
 }
 

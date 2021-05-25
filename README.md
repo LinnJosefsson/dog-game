@@ -1,8 +1,12 @@
 ![](https://media.giphy.com/media/h7Ft1qPnW1egSSlslC/giphy.gif)
 
-# Feed the doggie
+# Feed the Corgi
 
-In this project we built a game with Phaser 3. Your player is an adorable corgi, and the goal is to eat fruits, vegetables and chicken but be on the lokout and avoid the dreaded vacuum! Kudos to you if you can to play the whole game with music on :grimacing:
+In this project we built a game with Phaser 3. Your player is an adorable corgi, and the goal is to eat fruits, vegetables and chicken but be on the lookout and avoid the dreaded vacuums! Kudos to you if you can to play the whole game with music on :grimacing:
+
+# Game Preview
+
+[Feed the Corgi](https://carrotcorgi.netlify.app/)
 
 # Installation
 
@@ -19,6 +23,8 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 - [#4 - Vacuum/enemy moves in WinterScene](https://github.com/LinnJosefsson/dog-game/pull/4)
 - [#5 - Deploys with assets folder](https://github.com/LinnJosefsson/dog-game/pull/6)
 - [#6 - README updates, stopped debug mode, started music](https://github.com/LinnJosefsson/dog-game/pull/7)
+- [#7 - Resized game](https://github.com/LinnJosefsson/dog-game/pull/8)
+- [#8 - vacuum cleaners are evil](https://github.com/LinnJosefsson/dog-game/pull/9)
 
 # Code Review
 

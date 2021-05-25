@@ -29,19 +29,19 @@ class TitleScene extends Phaser.Scene {
       font: '18px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
-      padding: 15,
+      padding: 10,
     });
 
     musicOff.setInteractive({ useHandCursor: true });
-    musicOff.on('pointerdown', () => this.stopMusic());
+    musicOff.on('pointerdown', () => this.bgMusic.stop());
 
-    let title = this.add.text(20, 310, 'Welcome to the park', {
+    let title = this.add.text(20, 250, 'Feed the Corgi', {
       font: '54px Arial Black',
       fill: '#f6d55c',
     });
     title.stroke = '#173f5f';
     title.strokeThickness = 16;
-    title.setShadow(2, 2, '#333333', 2, true, true);
+    title.setShadow(3, 3, '#333333', 2, true, true);
 
     this.add.text(10, 10, "Enter dog's name:", {
       font: '26px Arial Black',
@@ -68,7 +68,7 @@ class TitleScene extends Phaser.Scene {
       }
     });
 
-    let startText = this.add.text(680, 600, 'Click to start', {
+    let startText = this.add.text(750, 550, 'Start game', {
       font: '36px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
@@ -76,9 +76,9 @@ class TitleScene extends Phaser.Scene {
     });
 
     startText.setInteractive({ useHandCursor: true });
-    startText.on('pointerdown', () => this.startGame());
+    startText.on('pointerdown', () => this.scene.switch('GameScene'));
 
-    let ruleText = this.add.text(1100, 700, 'Rules', {
+    let ruleText = this.add.text(1100, 650, 'Rules', {
       font: '18px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
@@ -86,19 +86,7 @@ class TitleScene extends Phaser.Scene {
     });
 
     ruleText.setInteractive({ useHandCursor: true });
-    ruleText.on('pointerdown', () => this.startRules());
-  }
-
-  startGame() {
-    this.scene.switch('GameScene');
-  }
-
-  startRules() {
-    this.scene.switch('RuleScene');
-  }
-
-  stopMusic() {
-    this.bgMusic.stop();
+    ruleText.on('pointerdown', () => this.scene.switch('RuleScene'));
   }
 }
 
