@@ -66,11 +66,14 @@ class WinterScene extends Phaser.Scene {
     this.eatMusic = this.sound.add('eat');
 
     createLoopedScene(this, totalWidth, 'background', 0.8);
-
     createLoopedScene(this, totalWidth, 'winterground', 1);
 
-    //vacuum
+     // WORLD BOUNDS
+    this.physics.world.setBounds(0, 0, width * 3.5, height - 50);
 
+    /*  GAME ITEMS
+    ------------------------------------------ */
+    //vacuum
     this.vacuums = this.physics.add.group({
       key: 'vacuum2-sm',
       repeat: 2,
@@ -118,7 +121,6 @@ class WinterScene extends Phaser.Scene {
     });
 
     //Chicken
-
     this.chicken = this.physics.add.group({
       key: 'chicken',
       repeat: 11,
@@ -130,7 +132,6 @@ class WinterScene extends Phaser.Scene {
     });
 
     //Blueberry
-
     this.blueberry = this.physics.add.group({
       key: 'blueberry',
       repeat: 11,
@@ -142,7 +143,6 @@ class WinterScene extends Phaser.Scene {
     });
 
     //Peas
-
     this.peas = this.physics.add.group({
       key: 'peas',
       repeat: 4,
@@ -153,15 +153,16 @@ class WinterScene extends Phaser.Scene {
       pea.body.allowGravity = false;
     });
 
-    //Corgi
+    // Corgi Player
     let player;
     this.player = this.physics.add.sprite(width * 0.5, height * 0.5, 'dog');
 
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
 
-    this.physics.world.setBounds(0, 0, width * 3, height - 50);
-
+    
+/* OVERLAPS - PLAYER AND ITEMS
+  ----------------------------------------------------- */
     this.physics.add.overlap(
       this.player,
       this.chicken,
@@ -194,6 +195,8 @@ class WinterScene extends Phaser.Scene {
       this
     );
 
+    /* CORGI PLAYER POSITIONS 
+    -------------------------------------------*/
     this.anims.create({
       key: 'idle',
       frames: [{ key: 'dog', frame: 2 }],
@@ -227,19 +230,31 @@ class WinterScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.cameras.main.setBounds(0, 0, width * 3, height);
+    // CAMERA MOVEMENT
+    this.cameras.main.setBounds(0, 0, width * 3.5, height);
     this.cameras.main.startFollow(this.player);
 
-    let backText = this.add.text(width * 2, 100, 'Final Score', {
+    // 'BUTTON' TO SEE FINAL SCORE
+    this.add.text(3700, 100, 'Level 2 Completed!', {
+      font: '40px Arial Black',
+      fill: '#f6d55c',
+      backgroundColor: '#173f5f',
+      padding: 10,
+      wordWrap: { width: 250 },
+    });
+
+    let backText = this.add.text(3700, 200, 'Click here to see your Final Score', {
       font: '25px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
       padding: 10,
+      wordWrap: { width: 200 },
     });
 
     backText.setInteractive({ useHandCursor: true });
     backText.on('pointerdown', () => this.clickButton());
 
+    // Current Score
     scoreText = this.add.text(16, 16, `Score: ${this.score}`, {
       font: '28px Arial Black',
       fill: '#f6d55c',
@@ -249,6 +264,33 @@ class WinterScene extends Phaser.Scene {
     scoreText.setScrollFactor(0, 0);
   }
 
+  update() {
+    const cam = this.cameras.main;
+    const speed = 30;
+
+    if (this.cursors.left.isDown) {
+      cam.scrollX -= speed;
+      this.player.setVelocityX(-160);
+      this.player.anims.play('left', true);
+    } else if (this.cursors.right.isDown) {
+      cam.scrollX += speed;
+      this.player.setVelocityX(160);
+      this.player.anims.play('right', true);
+    } else {
+      this.player.setVelocityX(0);
+      this.player.anims.stop(null, true);
+    }
+
+    if (this.cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-250);
+      this.jumpMusic.play();
+    } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-350);
+      this.jumpMusic.play();
+    }
+  }
+
+  // Functions
   clickButton() {
     this.scene.start('EndScene', { endScore: this.score });
   }
@@ -277,32 +319,6 @@ class WinterScene extends Phaser.Scene {
   hitByVacuum(player, vacuums) {
     this.score -= 1;
     scoreText.setText(`Score: ${this.score}`);
-  }
-
-  update() {
-    const cam = this.cameras.main;
-    const speed = 30;
-
-    if (this.cursors.left.isDown) {
-      cam.scrollX -= speed;
-      this.player.setVelocityX(-160);
-      this.player.anims.play('left', true);
-    } else if (this.cursors.right.isDown) {
-      cam.scrollX += speed;
-      this.player.setVelocityX(160);
-      this.player.anims.play('right', true);
-    } else {
-      this.player.setVelocityX(0);
-      this.player.anims.stop(null, true);
-    }
-
-    if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-250);
-      this.jumpMusic.play();
-    } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-350);
-      this.jumpMusic.play();
-    }
   }
 }
 
