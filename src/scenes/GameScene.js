@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 
-let score;
 let scoreText;
 
 const createLooped = (scene, totalWidth, texture, scrollFactor) => {
@@ -66,8 +65,12 @@ class GameScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'ground', 1);
     createLooped(this, totalWidth, 'plant', 1.25);
 
-    //Banana
+    // WORLD BOUNDS
+    this.physics.world.setBounds(0, 0, width * 3.5, height - 160);
 
+    /*  GAME ITEMS
+    ------------------------------------------ */
+    // Banana
     this.bananas = this.physics.add.group({
       key: 'banana-sm',
       repeat: 11,
@@ -78,8 +81,7 @@ class GameScene extends Phaser.Scene {
       banana.body.allowGravity = false;
     });
 
-    //Strawberry
-
+    // Strawberry
     this.strawberry = this.physics.add.group({
       key: 'strawberry-sm',
       repeat: 11,
@@ -90,8 +92,7 @@ class GameScene extends Phaser.Scene {
       strawber.body.allowGravity = false;
     });
 
-    //Carrot
-
+    // Carrot
     this.carrots = this.physics.add.group({
       key: 'carrot-sm',
       repeat: 4,
@@ -102,6 +103,7 @@ class GameScene extends Phaser.Scene {
       carrot.body.allowGravity = false;
     });
 
+    // Vacuums
     this.vacuums = this.physics.add.group({
       key: 'vacuum-sm',
       repeat: 2,
@@ -148,16 +150,17 @@ class GameScene extends Phaser.Scene {
       repeat: 1000,
     });
 
-    //Corgi
+    // Corgi Player
     let player;
     this.player = this.physics.add.sprite(width * 0.5, height * 0.5, 'dog');
 
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
 
-    this.physics.world.setBounds(0, 0, width * 3, height - 160);
 
-    this.physics.add.overlap(
+  /* OVERLAPS - PLAYER AND ITEMS
+  ----------------------------------------------------- */
+     this.physics.add.overlap(
       this.player,
       this.bananas,
       this.collectBananas,
@@ -189,6 +192,8 @@ class GameScene extends Phaser.Scene {
       this
     );
 
+    /* CORGI PLAYER POSITIONS 
+    -------------------------------------------*/
     this.anims.create({
       key: 'idle',
       frames: [{ key: 'dog', frame: 2 }],
@@ -222,19 +227,30 @@ class GameScene extends Phaser.Scene {
       repeat: -1,
     });
 
-    this.cameras.main.setBounds(0, 0, width * 3, height);
-    this.cameras.main.startFollow(this.player);
+     // CAMERA MOVEMENT
+     this.cameras.main.setBounds(0, 0, width * 3.5, height);
+     this.cameras.main.startFollow(this.player);
 
-    let winterText = this.add.text(width * 2, 100, 'Winter Wonderland', {
+     // 'BUTTON' TO NEW LEVEL
+     this.add.text(3700, 200, 'Level 1 Completed!', {
+      font: '40px Arial Black',
+      fill: '#f6d55c',
+      backgroundColor: '#173f5f',
+      padding: 10,
+      wordWrap: { width: 250 },
+    });
+    let newLevelText = this.add.text(3700, 300, 'Click here for the Next Level', {
       font: '25px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
       padding: 10,
+      wordWrap: { width: 200 },
     });
 
-    winterText.setInteractive({ useHandCursor: true });
-    winterText.on('pointerdown', () => this.clickButton());
+    newLevelText.setInteractive({ useHandCursor: true });
+    newLevelText.on('pointerdown', () => this.newLevel());
 
+    // Current Score
     scoreText = this.add.text(16, 16, `Score: ${this.score}`, {
       font: '28px Arial Black',
       fill: '#173f5f',
@@ -244,7 +260,36 @@ class GameScene extends Phaser.Scene {
     scoreText.setScrollFactor(0, 0);
   }
 
-  clickButton() {
+
+  update() {
+    const cam = this.cameras.main;
+    const speed = 30;
+
+    if (this.cursors.left.isDown) {
+      cam.scrollX -= speed;
+      this.player.setVelocityX(-160);
+      this.player.anims.play('left', true);
+    } else if (this.cursors.right.isDown) {
+      cam.scrollX += speed;
+      this.player.setVelocityX(160);
+      this.player.anims.play('right', true); 
+    } else {
+      this.player.setVelocityX(0);
+      this.player.anims.stop(null, true);
+    }
+
+    if (this.cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-250);
+      this.jumpMusic.play();
+    } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-350);
+      this.jumpMusic.play();
+    }
+  }
+
+  /* FUNCTIONS 
+  ------------------------------------------*/
+  newLevel() {
     this.scene.start('WinterScene', { totalScore: this.score });
   }
 
@@ -278,32 +323,6 @@ class GameScene extends Phaser.Scene {
   hitByVacuum(player, vacuums) {
     this.score -= 1;
     scoreText.setText(`Score: ${this.score}`);
-  }
-
-  update() {
-    const cam = this.cameras.main;
-    const speed = 30;
-
-    if (this.cursors.left.isDown) {
-      cam.scrollX -= speed;
-      this.player.setVelocityX(-160);
-      this.player.anims.play('left', true);
-    } else if (this.cursors.right.isDown) {
-      cam.scrollX += speed;
-      this.player.setVelocityX(160);
-      this.player.anims.play('right', true);
-    } else {
-      this.player.setVelocityX(0);
-      this.player.anims.stop(null, true);
-    }
-
-    if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-250);
-      this.jumpMusic.play();
-    } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-350);
-      this.jumpMusic.play();
-    }
   }
 }
 
