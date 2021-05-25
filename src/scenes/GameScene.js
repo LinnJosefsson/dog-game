@@ -68,7 +68,7 @@ class GameScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'ground', 1);
     createLooped(this, totalWidth, 'plant', 1.25);
 
-    // WORLD BOUNDS (also on line ~155 as comment)
+    // WORLD BOUNDS (earlier on line ~155)
     this.physics.world.setBounds(0, 0, width * 3.5, height - 160);
 
     /*  GAME ITEMS
@@ -159,11 +159,7 @@ class GameScene extends Phaser.Scene {
 
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
-    
-    // Flyttade upp till början av create()
-       // this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height - 160);
-       // this.physics.world.setBounds(0, 0, width * 3.5, height - 160);
-       // this.physics.world.setBounds(0, 0, width * 3, height - 160);
+
 
   /* OVERLAPS - PLAYER AND ITEMS
   ----------------------------------------------------- */
