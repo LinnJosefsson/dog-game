@@ -44,4 +44,4 @@ Tested by the following muggles (non-coders):
 1. Peter Szabo
 2. Marie Pell
 3. Liza Madarasz
-4. John Doe
+4. Ellen Danielsson
