@@ -37,6 +37,7 @@ class WinterScene extends Phaser.Scene {
     this.load.image('chicken', './assets/chicken.png');
     this.load.image('blueberry', './assets/blueberry.png');
     this.load.image('vacuum2', './assets/vacuum2.png');
+    this.load.image('vacuum2-sm', './assets/vacuum2-sm.png');
     this.load.spritesheet('dog', './assets/dog1.png', {
       frameWidth: 111,
       frameHeight: 103,
@@ -69,6 +70,17 @@ class WinterScene extends Phaser.Scene {
     createLoopedScene(this, totalWidth, 'winterground', 1);
 
     //vacuum
+
+    this.vacuums = this.physics.add.group({
+      key: 'vacuum2-sm',
+      repeat: 2,
+      setXY: { x: 500, y: 635, stepX: 800 },
+    });
+
+    Phaser.Actions.Call(this.vacuums.getChildren(), function (vacuum) {
+      vacuum.body.allowGravity = false;
+    });
+
     this.vacuumBig = this.add.image(3150, 580, 'vacuum2');
     this.vacuumBig.setScale(0.13);
 
@@ -89,7 +101,7 @@ class WinterScene extends Phaser.Scene {
 
     var tween2 = this.tweens.add({
       targets: this.vacuum2,
-      y: '-=78',
+      x: '-=38',
       duration: 2500,
       ease: 'Sine.easeInOut',
       yoyo: true,
@@ -98,7 +110,7 @@ class WinterScene extends Phaser.Scene {
 
     var tween3 = this.tweens.add({
       targets: this.vacuum3,
-      y: '-=78',
+      x: '-=38',
       duration: 3000,
       ease: 'Sine.easeInOut',
       yoyo: true,
@@ -170,6 +182,14 @@ class WinterScene extends Phaser.Scene {
       this.player,
       this.peas,
       this.collectPeas,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vacuums,
+      this.hitByVacuum,
       null,
       this
     );
@@ -254,6 +274,11 @@ class WinterScene extends Phaser.Scene {
     this.eatMusic.play();
   }
 
+  hitByVacuum(player, vacuums) {
+    this.score -= 1;
+    scoreText.setText(`Score: ${this.score}`);
+  }
+
   update() {
     const cam = this.cameras.main;
     const speed = 30;
@@ -272,10 +297,10 @@ class WinterScene extends Phaser.Scene {
     }
 
     if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-150);
+      this.player.setVelocityY(-250);
       this.jumpMusic.play();
     } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-250);
+      this.player.setVelocityY(-350);
       this.jumpMusic.play();
     }
   }

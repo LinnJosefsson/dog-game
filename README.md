@@ -24,6 +24,7 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 - [#5 - Deploys with assets folder](https://github.com/LinnJosefsson/dog-game/pull/6)
 - [#6 - README updates, stopped debug mode, started music](https://github.com/LinnJosefsson/dog-game/pull/7)
 - [#7 - Resized game](https://github.com/LinnJosefsson/dog-game/pull/8)
+- [#8 - vacuum cleaners are evil](https://github.com/LinnJosefsson/dog-game/pull/9)
 
 # Code Review
 
