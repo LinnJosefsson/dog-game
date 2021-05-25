@@ -142,22 +142,6 @@ class WinterScene extends Phaser.Scene {
       pea.body.allowGravity = false;
     });
 
-    //Vacuum med static group
-
-    /*     const vacuum = this.physics.add.staticGroup();
-    vacuum
-      .create(width / 1.5, 735, 'vacuum')
-      .setScale(0.05)
-      .refreshBody();
-    vacuum
-      .create(width * 1.8, 735, 'vacuum')
-      .setScale(0.04)
-      .refreshBody();
-    vacuum
-      .create(width * 2.2, 735, 'vacuum')
-      .setScale(0.02)
-      .refreshBody(); */
-
     //Corgi
     let player;
     this.player = this.physics.add.sprite(width * 0.5, height * 0.5, 'dog');
@@ -227,7 +211,7 @@ class WinterScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, width * 3, height);
     this.cameras.main.startFollow(this.player);
 
-    let backText = this.add.text(width * 2, 100, 'End Scene', {
+    let backText = this.add.text(width * 2, 100, 'Final Score', {
       font: '25px Arial Black',
       fill: '#173f5f',
       backgroundColor: '#f6d55c',
