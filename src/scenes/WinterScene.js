@@ -1,9 +1,8 @@
 import Phaser from 'phaser';
 
-//let score;
 let scoreText;
 
-const createLooped = (scene, totalWidth, texture, scrollFactor) => {
+const createLoopedScene = (scene, totalWidth, texture, scrollFactor) => {
   const w = scene.textures.get(texture).getSourceImage().width;
 
   const count = Math.ceil(totalWidth / w) * scrollFactor;
@@ -65,9 +64,9 @@ class WinterScene extends Phaser.Scene {
     this.jumpMusic = this.sound.add('jump');
     this.eatMusic = this.sound.add('eat');
 
-    createLooped(this, totalWidth, 'background', 0.8);
+    createLoopedScene(this, totalWidth, 'background', 0.8);
 
-    createLooped(this, totalWidth, 'winterground', 1);
+    createLoopedScene(this, totalWidth, 'winterground', 1);
 
     //vacuum
     this.vacuumBig = this.add.image(3150, 580, 'vacuum2');

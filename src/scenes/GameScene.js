@@ -1,9 +1,8 @@
 import Phaser from 'phaser';
 
-let score;
 let scoreText;
 
-const createLooped = (scene, totalWidth, texture, scrollFactor) => {
+const createLoopedScene = (scene, totalWidth, texture, scrollFactor) => {
   const w = scene.textures.get(texture).getSourceImage().width;
 
   const count = Math.ceil(totalWidth / w) * scrollFactor;
@@ -60,10 +59,10 @@ class GameScene extends Phaser.Scene {
     this.jumpMusic = this.sound.add('jump');
     this.eatMusic = this.sound.add('eat');
 
-    createLooped(this, totalWidth, 'mountain', 0.25);
-    createLooped(this, totalWidth, 'plateau', 0.5);
-    createLooped(this, totalWidth, 'ground', 1);
-    createLooped(this, totalWidth, 'plant', 1.25);
+    createLoopedScene(this, totalWidth, 'mountain', 0.25);
+    createLoopedScene(this, totalWidth, 'plateau', 0.5);
+    createLoopedScene(this, totalWidth, 'ground', 1);
+    createLoopedScene(this, totalWidth, 'plant', 1.25);
 
     //Banana
 
@@ -100,6 +99,8 @@ class GameScene extends Phaser.Scene {
     Phaser.Actions.Call(this.carrots.getChildren(), function (carrot) {
       carrot.body.allowGravity = false;
     });
+
+    //Vacuums
 
     this.vacuum2 = this.add.image(900, 550, 'vacuum');
     this.vacuum2.setScale(0.05);

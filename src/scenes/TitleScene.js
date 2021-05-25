@@ -33,7 +33,7 @@ class TitleScene extends Phaser.Scene {
     });
 
     musicOff.setInteractive({ useHandCursor: true });
-    musicOff.on('pointerdown', () => this.stopMusic());
+    musicOff.on('pointerdown', () => this.bgMusic.stop());
 
     let title = this.add.text(20, 250, 'Feed the Corgi', {
       font: '54px Arial Black',
@@ -76,7 +76,7 @@ class TitleScene extends Phaser.Scene {
     });
 
     startText.setInteractive({ useHandCursor: true });
-    startText.on('pointerdown', () => this.startGame());
+    startText.on('pointerdown', () => this.scene.switch('GameScene'));
 
     let ruleText = this.add.text(1100, 650, 'Rules', {
       font: '18px Arial Black',
@@ -86,19 +86,7 @@ class TitleScene extends Phaser.Scene {
     });
 
     ruleText.setInteractive({ useHandCursor: true });
-    ruleText.on('pointerdown', () => this.startRules());
-  }
-
-  startGame() {
-    this.scene.switch('GameScene');
-  }
-
-  startRules() {
-    this.scene.switch('RuleScene');
-  }
-
-  stopMusic() {
-    this.bgMusic.stop();
+    ruleText.on('pointerdown', () => this.scene.switch('RuleScene'));
   }
 }
 
