@@ -28,14 +28,23 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 
 # Code Review
 
-1. `example.js:10-15` - Remember to think about X and this could be refactored using the amazing Y function.
+1. `TitleScene.js:46` - It would be nice to have some type of indication that the input field for the dog's name is in focus. It's not really clear that you can start typing.
+2. Not sure if it's intended, but the moving vacuums doesn't do any damage on the player, could be a little confusing.
+3. `TitleScene.js:278` - You could add a check that prompts a game over if score is less than zero.
+4. `TitleScene.js:247` - It's not really clear that you have to click the "Winter Wonderland" button in order to move on to the next level. Maybe you could add something that automatically sends the player to the next scene at a certain X value?
+5. `WinterScene.js:252` - Same thing here, it would be nice to automatically be shown your score at the end of the scene.
+6. It would be fun to be able to win or lose the game.
+7. `TitleScene.js:278 & WinterScene.js:277` - When you touch a vacuum, it keeps on damaging the player forever, maybe you could add something that makes you invincible for a couple of seconds after taking damage.
+8. `TitleScene.js:36` - The sound on/off feature is really nice!
+9. Nice parallax background!
+10. `EndScene.js:24-32` - Maybe you could present the dog's name on the end screen, since it's not shown anywhere in the game.
 
 # Testers
 
 Tested by the following people:
 
-1. Jane Doe
-2. John Doe
+1. Gilda Eklöf
+2. Evelyn Fredin
 3. Jane Doe
 4. John Doe
 
