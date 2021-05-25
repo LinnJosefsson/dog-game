@@ -68,7 +68,7 @@ class GameScene extends Phaser.Scene {
     createLooped(this, totalWidth, 'ground', 1);
     createLooped(this, totalWidth, 'plant', 1.25);
 
-    // WORLD BOUNDS (earlier on line ~155)
+    // WORLD BOUNDS
     this.physics.world.setBounds(0, 0, width * 3.5, height - 160);
 
     /*  GAME ITEMS
@@ -253,6 +253,7 @@ class GameScene extends Phaser.Scene {
     newLevelText.setInteractive({ useHandCursor: true });
     newLevelText.on('pointerdown', () => this.newLevel());
 
+    // Current Score
     scoreText = this.add.text(16, 16, `Score: ${this.score}`, {
       font: '28px Arial Black',
       fill: '#173f5f',
@@ -262,15 +263,37 @@ class GameScene extends Phaser.Scene {
     scoreText.setScrollFactor(0, 0);
   }
 
+
+  update() {
+    const cam = this.cameras.main;
+    const speed = 30;
+
+    if (this.cursors.left.isDown) {
+      cam.scrollX -= speed;
+      this.player.setVelocityX(-160);
+      this.player.anims.play('left', true);
+    } else if (this.cursors.right.isDown) {
+      cam.scrollX += speed;
+      this.player.setVelocityX(160);
+      this.player.anims.play('right', true); 
+    } else {
+      this.player.setVelocityX(0);
+      this.player.anims.stop(null, true);
+    }
+
+    if (this.cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-250);
+      this.jumpMusic.play();
+    } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-350);
+      this.jumpMusic.play();
+    }
+  }
+
   /* FUNCTIONS 
   ------------------------------------------*/
   newLevel() {
     this.scene.start('WinterScene', { totalScore: this.score });
-  }
-
-  fuckingVacuumer(player, vacuum) {
-    this.score -= 10;
-    scoreText.setText(`Score: ${score}`);
   }
 
   collectBananas(player, bananas) {
@@ -303,32 +326,6 @@ class GameScene extends Phaser.Scene {
   hitByVacuum(player, vacuums) {
     this.score -= 1;
     scoreText.setText(`Score: ${this.score}`);
-  }
-
-  update() {
-    const cam = this.cameras.main;
-    const speed = 30;
-
-    if (this.cursors.left.isDown) {
-      cam.scrollX -= speed;
-      this.player.setVelocityX(-160);
-      this.player.anims.play('left', true);
-    } else if (this.cursors.right.isDown) {
-      cam.scrollX += speed;
-      this.player.setVelocityX(160);
-      this.player.anims.play('right', true); 
-    } else {
-      this.player.setVelocityX(0);
-      this.player.anims.stop(null, true);
-    }
-
-    if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-250);
-      this.jumpMusic.play();
-    } else if (this.cursors.space.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-350);
-      this.jumpMusic.play();
-    }
   }
 }
 
