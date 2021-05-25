@@ -1,9 +1,8 @@
 import Phaser from 'phaser';
 
-let score;
 let scoreText;
 
-const createLooped = (scene, totalWidth, texture, scrollFactor) => {
+const createLoopedScene = (scene, totalWidth, texture, scrollFactor) => {
   const w = scene.textures.get(texture).getSourceImage().width;
 
   const count = Math.ceil(totalWidth / w) * scrollFactor;
@@ -60,17 +59,17 @@ class GameScene extends Phaser.Scene {
     this.jumpMusic = this.sound.add('jump');
     this.eatMusic = this.sound.add('eat');
 
-    createLooped(this, totalWidth, 'mountain', 0.25);
-    createLooped(this, totalWidth, 'plateau', 0.5);
-    createLooped(this, totalWidth, 'ground', 1);
-    createLooped(this, totalWidth, 'plant', 1.25);
+    createLoopedScene(this, totalWidth, 'mountain', 0.25);
+    createLoopedScene(this, totalWidth, 'plateau', 0.5);
+    createLoopedScene(this, totalWidth, 'ground', 1);
+    createLoopedScene(this, totalWidth, 'plant', 1.25);
 
     //Banana
 
     this.bananas = this.physics.add.group({
       key: 'banana-sm',
       repeat: 11,
-      setXY: { x: 12, y: 635, stepX: 350 },
+      setXY: { x: 12, y: 535, stepX: 350 },
     });
 
     Phaser.Actions.Call(this.bananas.getChildren(), function (banana) {
@@ -82,7 +81,7 @@ class GameScene extends Phaser.Scene {
     this.strawberry = this.physics.add.group({
       key: 'strawberry-sm',
       repeat: 11,
-      setXY: { x: 80, y: 600, stepX: 600 },
+      setXY: { x: 80, y: 500, stepX: 600 },
     });
 
     Phaser.Actions.Call(this.strawberry.getChildren(), function (strawber) {
@@ -94,36 +93,22 @@ class GameScene extends Phaser.Scene {
     this.carrots = this.physics.add.group({
       key: 'carrot-sm',
       repeat: 4,
-      setXY: { x: 200, y: 450, stepX: 800 },
+      setXY: { x: 200, y: 350, stepX: 800 },
     });
 
     Phaser.Actions.Call(this.carrots.getChildren(), function (carrot) {
       carrot.body.allowGravity = false;
     });
 
-    //Vacuum med static group
+    //Vacuums
 
-    /*  const vacuum = this.physics.add.staticGroup();
-    vacuum
-      .create(width / 1.5, 615, 'vacuum')
-      .setScale(0.05)
-      .refreshBody();
-    vacuum
-      .create(width * 1.8, 615, 'vacuum')
-      .setScale(0.04)
-      .refreshBody();
-    vacuum
-      .create(width * 2.2, 615, 'vacuum')
-      .setScale(0.02)
-      .refreshBody(); */
-
-    this.vacuum2 = this.add.image(900, 650, 'vacuum');
+    this.vacuum2 = this.add.image(900, 550, 'vacuum');
     this.vacuum2.setScale(0.05);
 
-    this.vacuum3 = this.add.image(2300, 650, 'vacuum');
+    this.vacuum3 = this.add.image(2300, 550, 'vacuum');
     this.vacuum3.setScale(0.05);
 
-    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
+    this.vacuumBig = this.add.image(3150, 400, 'vacuum');
     this.vacuumBig.setScale(0.13);
 
     var tweenBig = this.tweens.add({
@@ -160,7 +145,7 @@ class GameScene extends Phaser.Scene {
     this.player.setBounce(0.2);
     this.player.setCollideWorldBounds(true);
 
-    this.physics.world.setBounds(0, 0, Number.MAX_SAFE_INTEGER, height - 160);
+    this.physics.world.setBounds(0, 0, width * 3, height - 160);
 
     this.physics.add.overlap(
       this.player,
@@ -265,7 +250,6 @@ class GameScene extends Phaser.Scene {
     scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
   }
-
   update() {
     const cam = this.cameras.main;
     const speed = 30;
