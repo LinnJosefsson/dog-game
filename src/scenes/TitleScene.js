@@ -35,7 +35,7 @@ class TitleScene extends Phaser.Scene {
     musicOff.setInteractive({ useHandCursor: true });
     musicOff.on('pointerdown', () => this.stopMusic());
 
-    let title = this.add.text(20, 250, 'Feed the doggie', {
+    let title = this.add.text(20, 250, 'Feed the Corgi', {
       font: '54px Arial Black',
       fill: '#f6d55c',
     });
