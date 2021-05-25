@@ -101,22 +101,6 @@ class GameScene extends Phaser.Scene {
       carrot.body.allowGravity = false;
     });
 
-    //Vacuum med static group
-
-    /*  const vacuum = this.physics.add.staticGroup();
-    vacuum
-      .create(width / 1.5, 615, 'vacuum')
-      .setScale(0.05)
-      .refreshBody();
-    vacuum
-      .create(width * 1.8, 615, 'vacuum')
-      .setScale(0.04)
-      .refreshBody();
-    vacuum
-      .create(width * 2.2, 615, 'vacuum')
-      .setScale(0.02)
-      .refreshBody(); */
-
     this.vacuum2 = this.add.image(900, 550, 'vacuum');
     this.vacuum2.setScale(0.05);
 
@@ -265,7 +249,6 @@ class GameScene extends Phaser.Scene {
     scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
   }
-
   update() {
     const cam = this.cameras.main;
     const speed = 30;
