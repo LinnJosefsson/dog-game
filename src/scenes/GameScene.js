@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 
-let score;
 let scoreText;
 
 const createLooped = (scene, totalWidth, texture, scrollFactor) => {
