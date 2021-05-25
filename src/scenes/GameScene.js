@@ -34,7 +34,8 @@ class GameScene extends Phaser.Scene {
     this.load.image('carrot-sm', 'src/assets/carrot-sm.png');
     this.load.image('banana-sm', 'src/assets/banana-sm.png');
     this.load.image('strawberry-sm', 'src/assets/strawberry-sm.png');
-    this.load.image('vacuum', 'src/assets/vacuum-cleaner.png');
+    this.load.image('vacuum', 'src/assets/vacuum-sm.png');
+    this.load.image('vacuum2', 'src/assets/vacuum2.png');
     this.load.spritesheet('dog', 'src/assets/dog1.png', {
       frameWidth: 111,
       frameHeight: 103,
@@ -117,25 +118,93 @@ class GameScene extends Phaser.Scene {
       .setScale(0.02)
       .refreshBody(); */
 
-    this.vacuum2 = this.add.image(900, 650, 'vacuum');
-    this.vacuum2.setScale(0.05);
+    this.vacuum4 = this.physics.add.group({
+      key: 'vacuum',
+      repeat: 2,
+      setXY: { x: 900, y: 610, stepX: 800 },
+    });
 
-    this.vacuum3 = this.add.image(2300, 650, 'vacuum');
-    this.vacuum3.setScale(0.05);
+    Phaser.Actions.Call(this.vacuum4.getChildren(), function (vacuum) {
+      vacuum.body.allowGravity = false;
+    });
 
-    this.vacuumBig = this.add.image(3150, 500, 'vacuum');
-    this.vacuumBig.setScale(0.13);
+    this.vacuum4.setVelocityX(-5, 0);
 
-    var tweenBig = this.tweens.add({
+    //big one
+    /*  this.vacuumBig = this.add.image(2150, 500, 'vacuum2'); */
+    /*  this.vacuumBig.setScale(0.08); */
+    this.vacuumBig = this.physics.add.group({
+      key: 'vacuum2',
+      repeat: 0,
+      setXY: { x: 1350, y: 590 },
+      setScale: { x: 0.1, y: 0.1 },
+    });
+
+    Phaser.Actions.Call(this.vacuumBig.getChildren(), function (vacuum) {
+      vacuum.body.allowGravity = false;
+    });
+
+    /* this.vacuumBig.setAnchor(10.0, 0.5); */
+
+    /*   var tween = this.tweens.add({
+      targets: vacuumBig,
+      angle: 360.0,
+      duration: 1500,
+      repeat: 0,
+    }); */
+
+    /*   Phaser.Actions.RotateAroundDistance(
+      vacuum.body.getChildren(),
+      { x: 400, y: 300 },
+      1,
+      400
+    ); */
+
+    /*     vacuumBig.add
+      .tween(vacuumBig.scale)
+      .to({ x: 0.3, y: 0.4 }, 1000, Phaser.Easing.Back.InOut, true, 0, false)
+      .yoyo(true); */
+
+    /* this.vacuumBig.setVelocityX(5, 5); */
+
+    /*    this.vacuumBig = this.add.image(2150, 500, 'vacuum');
+    this.vacuumBig = this.physics.add.group({
+      key: 'vacuum',
+      repeat: 1,
+      setXY: { x: 2150, y: 610, stepX: 700 },
+    }); */
+
+    /*     var tweenBig = this.tweens.add({
       targets: this.vacuumBig,
-      y: '-=128',
+      y: '-=180',
       duration: 3000,
       ease: 'Sine.easeInOut',
       yoyo: true,
       repeat: 1000,
-    });
+    }); */
 
-    var tween2 = this.tweens.add({
+    /*  this.vacuum2 = this.add.image(900, 650, 'vacuum');
+    this.vacuum2.setScale(0.05); */
+
+    /*  let vacuum4 = this.add.image(600, 600, 'vacuum').setScale(0.04); */
+
+    /*   this.vacuum3 = this.add.image(2300, 650, 'vacuum');
+    this.vacuum3.setScale(0.05); */
+
+    /*  this.vacuumBig = this.add.image(2150, 500, 'vacuum');
+    this.vacuumBig.setScale(0.13);
+    this.vacuumBig.setVelocityY(-20, 20); */
+
+    /*    var tweenBig = this.tweens.add({
+      targets: this.vacuumBig,
+      x: '-=128',
+      duration: 3000,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    }); */
+
+    /* var tween2 = this.tweens.add({
       targets: this.vacuum2,
       y: '-=128',
       duration: 2500,
@@ -151,7 +220,16 @@ class GameScene extends Phaser.Scene {
       ease: 'Sine.easeInOut',
       yoyo: true,
       repeat: 1000,
-    });
+    }); */
+
+    /*     var tween4 = this.tweens.add({
+      targets: this.vacuum4,
+      x: '-=80',
+      duration: 3000,
+      ease: 'Sine.easeInOut',
+      yoyo: true,
+      repeat: 1000,
+    }); */
 
     //Corgi
     let player;
@@ -182,6 +260,38 @@ class GameScene extends Phaser.Scene {
       this.player,
       this.carrots,
       this.collectCarrots,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vacuum2,
+      this.destroyVacuum,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vacuum3,
+      this.destroyVacuum,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vacuumBig,
+      this.destroyVacuum,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.vacuum4,
+      this.destroyVacuum,
       null,
       this
     );
@@ -264,6 +374,30 @@ class GameScene extends Phaser.Scene {
     this.score += 15;
     scoreText.setText(`Score: ${this.score}`);
     this.eatMusic.play();
+  }
+
+  destroyVacuum(player, vacuum2) {
+    vacuum2.destroy();
+    this.score += 25;
+    scoreText.setText(`Score: ${this.score}`);
+  }
+
+  destroyVacuum(player, vacuum3) {
+    vacuum3.destroy();
+    this.score += 5;
+    scoreText.setText(`Score: ${this.score}`);
+  }
+
+  destroyVacuum(player, vacuumBig) {
+    vacuumBig.destroy();
+    this.score += 55;
+    scoreText.setText(`Score: ${this.score}`);
+  }
+
+  destroyVacuum(player, vacuum4) {
+    /* vacuum4.destroy(); */
+    this.score -= 5;
+    scoreText.setText(`Score: ${this.score}`);
   }
 
   update() {
