@@ -34,7 +34,7 @@ class EndScene extends Phaser.Scene {
     scoreText.strokeThickness = 16;
     scoreText.setShadow(2, 2, '#333333', 2, true, true);
 
-    let startText = this.add.text(930, 600, 'Back to main', {
+    let startText = this.add.text(930, 600, 'Restart Game', {
       font: '32px Arial Black',
       fill: '#f6d55c',
       backgroundColor: '#173f5f',
@@ -45,6 +45,7 @@ class EndScene extends Phaser.Scene {
     startText.on('pointerdown', () => this.backToMain());
   }
   backToMain() {
+    window.location.reload();
     this.scene.switch('TitleScene');
   }
 }
