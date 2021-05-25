@@ -34,7 +34,7 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 
 Tested by the following people:
 
-1. Jane Doe
+1. Ida From
 2. John Doe
 3. Jane Doe
 4. John Doe
