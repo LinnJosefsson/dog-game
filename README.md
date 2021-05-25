@@ -30,6 +30,7 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 - [#8 - vacuum cleaners are evil](https://github.com/LinnJosefsson/dog-game/pull/9)
 - [#9 - Code Review by classmates](https://github.com/LinnJosefsson/dog-game/pull/12)
 - [#10 - New Level "button + Structured code](https://github.com/LinnJosefsson/dog-game/pull/13)
+- [#11 - Final Tester and Changelog](https://github.com/LinnJosefsson/dog-game/pull/14)
 
 # Code Review
 
