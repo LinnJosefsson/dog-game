@@ -1,4 +1,3 @@
-import { none } from 'html-webpack-plugin/lib/chunksorter';
 import Phaser from 'phaser';
 
 let score;
