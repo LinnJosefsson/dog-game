@@ -13,7 +13,10 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 - after cloning or downloading the repo, cd into the folder containing it
 - open up your terminal and:
   - `npm install` to get all the plugins
-  - `npm start` to start the game
+  - `npm run build` to build the project
+  - Open `dist/index.html` with Live Server (and don't use Brave Browser)
+  
+  (If you want to use `npm run start` you might need to add a new `assets/music` folder in the root of the project with the audio files.)
 
 # Changelog
 
@@ -25,6 +28,9 @@ In this project we built a game with Phaser 3. Your player is an adorable corgi,
 - [#6 - README updates, stopped debug mode, started music](https://github.com/LinnJosefsson/dog-game/pull/7)
 - [#7 - Resized game](https://github.com/LinnJosefsson/dog-game/pull/8)
 - [#8 - vacuum cleaners are evil](https://github.com/LinnJosefsson/dog-game/pull/9)
+- [#9 - Code Review by classmates](https://github.com/LinnJosefsson/dog-game/pull/12)
+- [#10 - New Level "button + Structured code](https://github.com/LinnJosefsson/dog-game/pull/13)
+- [#11 - Final Tester and Changelog](https://github.com/LinnJosefsson/dog-game/pull/14)
 
 # Code Review
 
@@ -47,7 +53,7 @@ Tested by the following people:
 1. Gilda Eklöf
 2. Evelyn Fredin
 3. Ida From
-4. John Doe
+4. Amanda Fager
 
 Tested by the following muggles (non-coders):
 
